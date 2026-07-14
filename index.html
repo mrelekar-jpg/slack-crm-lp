@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack CRM - Salesforce Audience Landing Page Copy V2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1d1c1d; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* Logo bar */
+        .logo-bar { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px 0; background: #fff; border-bottom: 1px solid #e8e8e8; }
+        .logo-bar img { height: 32px; }
+        .logo-bar .plus { font-size: 24px; color: #999; font-weight: 300; }
+        .logo-bar svg text { fill: #032D60; }
+
+        /* Hero image */
+        .hero-image { max-width: 900px; margin: 40px auto 0; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .hero-image img { width: 100%; display: block; }
+
+        /* Use case images */
+        .use-case-card img { width: 100%; border-radius: 8px; margin-bottom: 16px; }
+
+        /* Video embed */
+        .video-section { padding: 60px 0; background: white; text-align: center; }
+        .video-section h2 { font-size: 36px; font-weight: 800; margin-bottom: 32px; }
+        .video-wrapper { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 12px; }
+
+        .hero { background: linear-gradient(135deg, #032D60 0%, #0176D3 100%); color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 20px; max-width: 700px; margin: 0 auto 32px; opacity: 0.9; }
+        .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary { background: white; color: #032D60; padding: 14px 32px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; display: inline-block; }
+        .btn-secondary { background: transparent; color: white; padding: 14px 32px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; border: 2px solid white; display: inline-block; }
+
+        .section { padding: 80px 0; }
+        .section:nth-child(even) { background: #f8f8f8; }
+        .section-label { text-transform: uppercase; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #0176D3; margin-bottom: 12px; }
+        .section h2 { font-size: 36px; font-weight: 800; margin-bottom: 20px; }
+        .section p { font-size: 18px; color: #454245; max-width: 700px; }
+        .section .testimonial { margin-top: 32px; padding: 24px; background: white; border-left: 4px solid #0176D3; border-radius: 4px; font-style: italic; color: #616061; }
+
+        .use-cases { padding: 80px 0; background: white; }
+        .use-cases h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
+        .use-case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .use-case-card { padding: 32px; background: #f8f8f8; border-radius: 12px; }
+        .use-case-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #032D60; }
+        .use-case-card p { font-size: 16px; color: #454245; }
+
+        .faq { padding: 80px 0; background: #f8f8f8; }
+        .faq h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
+        .faq-item { background: white; border-radius: 8px; padding: 24px 32px; max-width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 16px; }
+        .faq-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1d1c1d; }
+        .faq-item p { font-size: 16px; color: #616061; }
+
+        .footer-cta { background: linear-gradient(135deg, #032D60 0%, #0176D3 100%); color: white; padding: 80px 0; text-align: center; }
+        .footer-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; }
+        .footer-cta p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+
+        .resources { padding: 80px 0; }
+        .resources h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
+        .resource-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .resource-card { padding: 24px; border: 1px solid #e8e8e8; border-radius: 8px; }
+        .resource-card p { font-size: 15px; font-weight: 600; color: #1d1c1d; }
+        .resource-card span { font-size: 14px; color: #0176D3; font-weight: 600; margin-top: 12px; display: block; }
+
+    </style>
+</head>
+<body>
+
+<!-- LOGO BAR: Slack CRM by Salesforce -->
+<div class="logo-bar">
+    <svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
+        <!-- Salesforce cloud icon -->
+        <path d="M16.5 10c2.2-2.3 5.3-3.7 8.7-3.7 4.2 0 7.9 2.2 10 5.5 1.7-1.1 3.7-1.8 5.8-1.8 6 0 10.8 4.8 10.8 10.8s-4.8 10.8-10.8 10.8c-1 0-2-.1-2.9-.4-1.8 2.8-5 4.6-8.5 4.6-2.2 0-4.2-.7-5.9-1.8-1.8 2.5-4.7 4.1-8 4.1-3.7 0-6.9-2-8.6-5-1-.2-2-.4-2.9-.4C1.8 32.7-2 27.9-2 22s3.8-10.8 10.8-10.8c.3 0 .6 0 .9 0C11.4 8.5 13.7 6.5 16.5 10z" fill="#00A1E0" transform="translate(4, 2) scale(0.7)"/>
+        <!-- Slack CRM text -->
+        <text x="48" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" fill="#1d1c1d">Slack CRM</text>
+    </svg>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <h1>Slack CRM.<br>The simplicity of Slack. The power of Salesforce.</h1>
+        <p>Contacts, deals, and pipeline &mdash; managed where your team already works. Slackbot is your AI assistant that handles the CRM work for you. Get started in minutes.</p>
+        <div class="cta-group">
+            <a href="#" class="btn-primary">Start Trial</a>
+            <a href="#" class="btn-secondary">Talk to Sales</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/updated-sales-tracker-image-hero-customer-management.jpg" alt="Slack CRM Sales Tracker">
+        </div>
+    </div>
+</section>
+
+<!-- WHY SLACK CRM -->
+<section class="section" style="background: white;">
+    <div class="container" style="text-align: center;">
+        <h2 style="margin-bottom: 16px;">Why Slack CRM</h2>
+        <p style="font-size: 20px; color: #454245; max-width: 700px; margin: 0 auto 40px;">Conversational CRM &mdash; enough to get started and remove the chaos of managing customers. Just talk to Slackbot, and your CRM stays up to date.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; text-align: left;">
+            <div>
+                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">Conversational, not complicated</h3>
+                <p style="font-size: 16px; color: #454245;">Update a deal, add a contact, log a note &mdash; just tell Slackbot in plain language. No forms, no clicks, no navigating tabs. CRM that works the way you talk.</p>
+            </div>
+            <div>
+                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">AI grounded in your conversations</h3>
+                <p style="font-size: 16px; color: #454245;">Slackbot has context from your channels, your deals, your customer history. It preps meetings, drafts follow-ups, and updates records &mdash; because it already knows what happened.</p>
+            </div>
+            <div>
+                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">Ready in minutes, not months</h3>
+                <p style="font-size: 16px; color: #454245;">No implementation, no consultants, no training. Sign up, opt in, and start managing customers immediately &mdash; right in the conversations you're already having.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 1: WORK SMARTER -->
+<section class="section">
+    <div class="container">
+        <div class="section-label">Work Smarter</div>
+        <h2>CRM that works as fast as your team does</h2>
+        <p>Research accounts, prepare for meetings, and draft follow-ups in seconds. Slackbot handles the CRM work so your team can focus on closing deals and building relationships.</p>
+        <div class="testimonial">
+            "Before, I was spending hours every week juggling spreadsheets. Now I just tell Slackbot what happened after a call, and it updates everything automatically. I'm saving at least 90 minutes a day on admin work&mdash;time I can actually spend with customers."
+            <br><br>&mdash; <strong>Sia Ghazvinian</strong>, Co-founder and CEO
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: STAY ORGANIZED -->
+<section class="section">
+    <div class="container">
+        <div class="section-label">Stay Organized</div>
+        <h2>Your contacts, deals, and cases &mdash; always up to date</h2>
+        <p>Slackbot captures customer details from your conversations and keeps your CRM current automatically. No forms to fill out, no extra apps to update. Your whole team sees the same information, in one place.</p>
+        <div class="testimonial">
+            "Having everything in one place is a game-changer&mdash;from prepping to navigating my day with the agenda view and Slackbot's suggested focus areas, I never have to leave Slack."
+            <br><br>&mdash; <strong>Em Smith</strong>, Founder
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: SALESFORCE BUILT-IN -->
+<section class="section">
+    <div class="container">
+        <div class="section-label">Built on Salesforce</div>
+        <h2>Start here. Scale when you're ready.</h2>
+        <p>Your data syncs to Salesforce from day one. When your team needs more, everything is already there &mdash; no migration, no starting over.</p>
+        <div class="testimonial">
+            "When we launched, we couldn't justify expensive CRM software. Slack CRM gives small teams what they need right where they work&mdash;no switching tabs, no learning another platform."
+            <br><br>&mdash; <strong>George Graham</strong>, Founder and CEO
+        </div>
+    </div>
+</section>
+
+<!-- USE CASES -->
+<section class="use-cases">
+    <div class="container">
+        <h2>Full CRM capabilities, just ask Slackbot</h2>
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/use-case-1.png" alt="Track Your Pipeline">
+                <h3>Track Your Pipeline</h3>
+                <p>See every deal on a visual board. Slackbot creates leads, updates stages, and keeps your pipeline current &mdash; just ask.</p>
+            </div>
+            <div class="use-case-card">
+                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/use-case-2-updated.png" alt="Prep for Meetings">
+                <h3>Prep for Meetings</h3>
+                <p>Ask Slackbot for a briefing before any call. Deal status, conversation history, and talking points &mdash; ready in seconds.</p>
+            </div>
+            <div class="use-case-card">
+                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/smbcrm-use-case-3.png" alt="Update Deals">
+                <h3>Update Deals</h3>
+                <p>Just finished a call? Tell Slackbot. Move deals forward, log notes, and keep records up to date without opening another app.</p>
+            </div>
+            <div class="use-case-card">
+                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/crmsb-Use-case-5.png" alt="Speed Up Outreach and Support">
+                <h3>Speed Up Outreach and Support</h3>
+                <p>Leads from your website land in Slack instantly. Support emails become cases. Route, respond, and draft follow-ups &mdash; all in the flow of conversation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VIDEO DEMO -->
+<section class="video-section">
+    <div class="container">
+        <h2>See Slack CRM in action</h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/_haADw7g8g0" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="resources">
+    <div class="container">
+        <h2>Learn more about Slack CRM</h2>
+        <div class="resource-grid">
+            <div class="resource-card">
+                <p>How Slack CRM works with Salesforce</p>
+                <span>Read more &rarr;</span>
+            </div>
+            <div class="resource-card">
+                <p>Getting started with customer management in Slack</p>
+                <span>Read more &rarr;</span>
+            </div>
+            <div class="resource-card">
+                <p>Why growing teams choose AI-powered CRM</p>
+                <span>Read more &rarr;</span>
+            </div>
+            <div class="resource-card">
+                <p>From sign-up to first deal: a 5-minute guide</p>
+                <span>Read more &rarr;</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED TESTIMONIAL -->
+<section class="section" style="text-align: center; padding: 60px 0;">
+    <div class="container">
+        <p style="font-size: 24px; font-style: italic; max-width: 800px; margin: 0 auto 24px; color: #1d1c1d;">"At first, it felt like a small workflow improvement. But over time, we saw the compounding effect. Better conversations led to better pipeline, which led to better conversions."</p>
+        <p style="font-size: 16px; color: #616061;"><strong>Gerardo Rodriguez Phillip</strong>, Co-founder & CEO, Sparked</p>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+    <div class="container">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <h3>What is Slack CRM?</h3>
+            <p>Slack CRM is the fastest way to get started with CRM on the Salesforce platform. It lives inside Slack, where your team already works, and uses Slackbot to handle the heavy lifting &mdash; so you're up and running in minutes, not weeks.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What can I do with Slack CRM?</h3>
+            <p>Track deals on a visual pipeline, manage contacts and accounts, capture leads from web forms, handle support cases, and let Slackbot help with meeting prep, account research, follow-up emails, and record updates &mdash; all inside Slack.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How much does it cost?</h3>
+            <p>Slack CRM is included in the Slack Business+ plan at no additional cost. Start with a free trial &mdash; no credit card required. Supports up to 100 users.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do I need to set up a Salesforce account separately?</h3>
+            <p>No. When you opt in to Slack CRM, a Salesforce workspace is provisioned automatically in the background. You manage everything from Slack &mdash; no separate login needed.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What happens when my team outgrows Slack CRM?</h3>
+            <p>Upgrade whenever you're ready. All your records and history are already in Salesforce, so there's nothing to move. You just get access to more.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can my whole team use it?</h3>
+            <p>Yes. Slack CRM supports up to 100 users on your team. Everyone sees the same customer records, deal updates, and conversation context &mdash; no per-seat CRM charges beyond your Slack plan.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+    <div class="container">
+        <h2>Get started with Slack CRM</h2>
+        <p>The simplicity of Slack. The power of Salesforce. No credit card required.</p>
+        <div class="cta-group">
+            <a href="#" class="btn-primary">Start Trial</a>
+            <a href="#" class="btn-secondary">Talk to Sales</a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
