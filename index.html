@@ -3,281 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slack CRM - Salesforce Audience Landing Page Copy V2</title>
+    <title>Small Business Software — Salesforce</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1d1c1d; line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        body {
+            font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #181818;
+            line-height: 1.5;
+        }
 
-        /* Logo bar */
-        .logo-bar { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px 0; background: #fff; border-bottom: 1px solid #e8e8e8; }
-        .logo-bar img { height: 32px; }
-        .logo-bar .plus { font-size: 24px; color: #999; font-weight: 300; }
-        .logo-bar svg text { fill: #032D60; }
-        .beta-tag { display: inline-block; background: #0176D3; color: white; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-left: 8px; }
+        /* ===== TOP NAV (Salesforce global) ===== */
+        .global-nav {
+            background: #fff;
+            padding: 0 40px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e5e5e5;
+        }
 
-        /* Hero image */
-        .hero-image { max-width: 900px; margin: 40px auto 0; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .hero-image img { width: 100%; display: block; }
+        .global-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
 
-        /* Use case images */
-        .use-case-card img { width: 100%; border-radius: 8px; margin-bottom: 16px; }
+        .sf-logo img {
+            height: 40px;
+            width: auto;
+        }
 
-        /* Video embed */
-        .video-section { padding: 60px 0; background: white; text-align: center; }
-        .video-section h2 { font-size: 36px; font-weight: 800; margin-bottom: 32px; }
-        .video-wrapper { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 12px; }
+        .global-nav-links {
+            display: flex;
+            gap: 22px;
+        }
 
-        .hero { background: linear-gradient(135deg, #032D60 0%, #0176D3 100%); color: white; padding: 80px 0; text-align: center; }
-        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 20px; max-width: 700px; margin: 0 auto 32px; opacity: 0.9; }
-        .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn-primary { background: white; color: #032D60; padding: 14px 32px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; display: inline-block; }
-        .btn-secondary { background: transparent; color: white; padding: 14px 32px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; border: 2px solid white; display: inline-block; }
+        .global-nav-links a {
+            text-decoration: none;
+            color: #032d60;
+            font-size: 14px;
+            font-weight: 400;
+        }
 
-        .section { padding: 80px 0; }
-        .section:nth-child(even) { background: #f8f8f8; }
-        .section-label { text-transform: uppercase; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #0176D3; margin-bottom: 12px; }
-        .section h2 { font-size: 36px; font-weight: 800; margin-bottom: 20px; }
-        .section p { font-size: 18px; color: #454245; max-width: 700px; }
-        .section .testimonial { margin-top: 32px; padding: 24px; background: white; border-left: 4px solid #0176D3; border-radius: 4px; font-style: italic; color: #616061; }
+        .global-nav-links a:hover {
+            text-decoration: underline;
+        }
 
-        .use-cases { padding: 80px 0; background: white; }
-        .use-cases h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
-        .use-case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-        .use-case-card { padding: 32px; background: #f8f8f8; border-radius: 12px; }
-        .use-case-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #032D60; }
-        .use-case-card p { font-size: 16px; color: #454245; }
+        .global-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        .faq { padding: 80px 0; background: #f8f8f8; }
-        .faq h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
-        .faq-item { background: white; border-radius: 8px; padding: 24px 32px; max-width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 16px; }
-        .faq-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1d1c1d; }
-        .faq-item p { font-size: 16px; color: #616061; }
+        .global-nav-right a {
+            text-decoration: none;
+            color: #032d60;
+            font-size: 14px;
+            font-weight: 400;
+        }
 
-        .footer-cta { background: linear-gradient(135deg, #032D60 0%, #0176D3 100%); color: white; padding: 80px 0; text-align: center; }
-        .footer-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; }
-        .footer-cta p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+        .global-nav-right a:hover {
+            text-decoration: underline;
+        }
 
-        .resources { padding: 80px 0; }
-        .resources h2 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 48px; }
-        .resource-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .resource-card { padding: 24px; border: 1px solid #e8e8e8; border-radius: 8px; }
-        .resource-card p { font-size: 15px; font-weight: 600; color: #1d1c1d; }
-        .resource-card span { font-size: 14px; color: #0176D3; font-weight: 600; margin-top: 12px; display: block; }
+        /* ===== SUB NAV (Small Business) ===== */
+        .sub-nav {
+            background: #fff;
+            padding: 0 40px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #0176d3;
+        }
 
+        .sub-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .sub-nav-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #032d60;
+        }
+
+        .sub-nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .sub-nav-links a {
+            text-decoration: none;
+            color: #032d60;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .sub-nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .sub-nav-cta {
+            background: #0176d3;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .sub-nav-cta:hover {
+            background: #014486;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: #032d60;
+            padding: 72px 80px 120px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+            min-height: 520px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-size: 14px;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 16px;
+            letter-spacing: 0.2px;
+        }
+
+        /* Beta pill */
+        .beta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 6px 14px;
+            margin-bottom: 24px;
+        }
+
+        .beta-pill-dot {
+            width: 8px;
+            height: 8px;
+            background: #2eb67d;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .beta-pill-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .beta-pill-tag {
+            background: #611f69;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .accent {
+            color: #4ac9c9;
+        }
+
+        .hero-body {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 500px;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 28px;
+            background: #fff;
+            color: #0176d3;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .btn-cta-primary:hover {
+            background: #eaf5fe;
+            border-color: #eaf5fe;
+        }
+
+        .btn-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 28px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .btn-cta-secondary:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.06);
+        }
+
+        /* Hero Right — Video/Image Area */
+        .hero-right {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-media {
+            background: linear-gradient(135deg, #0d4f8b 0%, #1976c4 50%, #0d4f8b 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+        }
+
+        .hero-media-content {
+            text-align: center;
+            color: #fff;
+            padding: 40px;
+        }
+
+        .hero-media-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 2px solid rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .play-button:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent white;
+            margin-left: 4px;
+        }
+
+        /* Floating avatar bubbles */
+        .floating-avatars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .avatar-bubble {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .avatar-bubble:nth-child(1) { top: 6%; left: 4%; background: #e01e5a; }
+        .avatar-bubble:nth-child(2) { top: 4%; right: 18%; background: #2eb67d; }
+        .avatar-bubble:nth-child(3) { top: 20%; right: 2%; background: #36c5f0; }
+        .avatar-bubble:nth-child(4) { bottom: 28%; left: 2%; background: #ecb22e; }
+        .avatar-bubble:nth-child(5) { bottom: 8%; right: 6%; background: #611f69; }
+        .avatar-bubble:nth-child(6) { bottom: 10%; left: 10%; background: #0176d3; }
+
+
+        /* ===== Rest of page placeholder ===== */
+        .rest-of-page {
+            padding: 80px 40px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .rest-of-page p {
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 960px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 60px 32px 100px;
+            }
+            .hero h1 { font-size: 34px; }
+            .global-nav-links, .sub-nav-links { display: none; }
+            .hero-media { margin-top: 20px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- LOGO BAR: Slack CRM by Salesforce -->
-<div class="logo-bar">
-    <svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
-        <!-- Salesforce cloud icon -->
-        <path d="M16.5 10c2.2-2.3 5.3-3.7 8.7-3.7 4.2 0 7.9 2.2 10 5.5 1.7-1.1 3.7-1.8 5.8-1.8 6 0 10.8 4.8 10.8 10.8s-4.8 10.8-10.8 10.8c-1 0-2-.1-2.9-.4-1.8 2.8-5 4.6-8.5 4.6-2.2 0-4.2-.7-5.9-1.8-1.8 2.5-4.7 4.1-8 4.1-3.7 0-6.9-2-8.6-5-1-.2-2-.4-2.9-.4C1.8 32.7-2 27.9-2 22s3.8-10.8 10.8-10.8c.3 0 .6 0 .9 0C11.4 8.5 13.7 6.5 16.5 10z" fill="#00A1E0" transform="translate(4, 2) scale(0.7)"/>
-        <!-- Slack CRM text -->
-        <text x="48" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" fill="#1d1c1d">Slack CRM</text>
-    </svg>
-    <span class="beta-tag">Beta</span>
-</div>
+<!-- ===== GLOBAL NAV ===== -->
+<nav class="global-nav">
+    <div class="global-nav-left">
+        <a href="https://www.salesforce.com" class="sf-logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAMAAACJuGjuAAAC9FBMVEX////8/v70+f3k8/rR6/e64fOi1++Lzet1xOdhu+RQtOFCrt80qNwrpNsmotogn9kentkandgYnNgcndgfn9kioNknototpds4qd1Fr99Xt+JpvuV8xeiTz+yq2vDD5PTY7vjo9fv2+/3+/v75/P7r9vuz3vKQz+xxwudVtuI+rN4cntgZnNganNgyp9xEr99cueN7x+ia1O694vPb7/jv+Pz8/f71+v3d8Pm34PKMzetjvORBrd4po9svptxKseBvwebF5vXm9fri8vqFy+o8q96X0u3I5/Xt9/vX7fig1u9mvuU6qt0lodp5xej7/f75/P2c1e6w3fGn2fAvpdsdnti/5PR9x+lOsuGs2/H1+/1HsOBfuuS13/KOzuzu9/zh8vmu3PHb7/nV7ffN6fbT7Pfg8fnt9/x/yOlqvuVauONLsuA/rN42qd0xptxTteJ3xOjx+fyr2/BJseAbndgjodqCyerK6Paf1e5fuuO84vNHr99PsuGJzOtzw+eSz+yl2O/P6faHy+pFrt9rv+a44PNswObz+fxvwOaV0e0hn9lTtOHn9Pru+Pz+/v9MseDL6fZYt+Kb0+3P6veg1e6U0eyIy+oqo9oXm9gXm9cWm9cVm9cUmtc8qt0so9o3qNwYm9cdndg+q91svuWZ0e3R6vbS6vduv+XG5fXm8/q84fMVmtdiuuSx3PFlu+RIrt/v9/y64PKBx+nq9fvW7PeV0Oz4+/2QzutVteHI5vUnodqGyeqj1u623vKh1e643/LX7Pfn8/pnvOQtpNup2PCs2vBDrd4to9uDyOni8fnD4/RzwebM5/UYnNec0+0XnNgxptsfntmw2/F1w+e13fLF5fV+xug0p9xat+LK5/XT6/eLzOqq2fDp9Prf8PlJsN/V6/d4w+ee0+7a7vjB4/Tx+Pyk1+9duOOv2/Dd7/iNzOuX0Ozg8PlwwOaz3fHy+Pym2PDV7PeAxuj9/f6Y0ez7/P5XteLA4vNku+S33fIRmdbD5fWfMt5aAAAsbUlEQVR4AezBNwEAIAAAIPe2f10z+AMBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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" alt="Salesforce">
+        </a>
+        <div class="global-nav-links">
+            <a href="#">Products</a>
+            <a href="#">Industries</a>
+            <a href="#">Customers</a>
+            <a href="#">Events</a>
+            <a href="#">Learning</a>
+            <a href="#">Support</a>
+            <a href="#">Company</a>
+        </div>
+    </div>
+    <div class="global-nav-right">
+        <a href="https://www.salesforce.com/company/contact-us/?d=cta-header-9">Contact Us</a>
+        <a href="#">&#x1f310;</a>
+        <a href="#">&#x1f464; Login</a>
+    </div>
+</nav>
 
-<!-- HERO -->
+<!-- ===== SUB NAV ===== -->
+<nav class="sub-nav">
+    <div class="sub-nav-left">
+        <span class="sub-nav-title">Small Business</span>
+        <div class="sub-nav-links">
+            <a href="#">Overview</a>
+            <a href="#">Small Business Products &#x25BE;</a>
+            <a href="#">Pricing</a>
+            <a href="#">Blog</a>
+        </div>
+    </div>
+    <a href="https://slack.com/signin?solution=list.SLACK_FIRST_CRM&is_redirect=true#/signin" class="sub-nav-cta">Start for free</a>
+</nav>
+
+<!-- ===== HERO ===== -->
 <section class="hero">
-    <div class="container">
-        <h1>Slack CRM.<br>The simplicity of Slack. The power of Salesforce.</h1>
-        <p>Contacts, deals, and pipeline &mdash; managed where your team already works. Slackbot is your AI assistant that handles the CRM work for you. Get started in minutes.</p>
-        <div class="cta-group">
-            <a href="#" class="btn-primary">Start Trial</a>
-            <a href="#" class="btn-secondary">Talk to Sales</a>
+    <div class="hero-left">
+        <div class="hero-eyebrow">Small Business Software</div>
+
+        <!-- Beta pill -->
+        <div class="beta-pill">
+            <span class="beta-pill-dot"></span>
+            <span class="beta-pill-text">Early Access — Limited Availability</span>
+            <span class="beta-pill-tag">Beta</span>
         </div>
-        <div class="hero-image">
-            <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/updated-sales-tracker-image-hero-customer-management.jpg" alt="Slack CRM Sales Tracker">
+
+        <h1>Slack CRM.<br><span class="accent">The simplicity of Slack.<br>The power of Salesforce.</span></h1>
+
+        <p class="hero-body">Start simple, then grow when you're ready. Every conversation, customer, and deal connects to Salesforce in the background — so when your team is ready for a full CRM, nothing needs to be migrated. Everything you've captured in Slack is already there.</p>
+
+        <div class="hero-ctas">
+            <a href="https://slack.com/signin?solution=list.SLACK_FIRST_CRM&is_redirect=true#/signin" target="_blank" rel="noopener" class="btn-cta-primary">Try Slack CRM &#x2197;</a>
+            <a href="https://www.salesforce.com/company/contact-us/?d=cta-header-9" target="_blank" rel="noopener" class="btn-cta-secondary">Talk to Sales</a>
         </div>
     </div>
-</section>
 
-<!-- WHY SLACK CRM -->
-<section class="section" style="background: white;">
-    <div class="container" style="text-align: center;">
-        <h2 style="margin-bottom: 16px;">Why Slack CRM</h2>
-        <p style="font-size: 20px; color: #454245; max-width: 700px; margin: 0 auto 40px;">Conversational CRM &mdash; enough to get started and remove the chaos of managing customers. Just talk to Slackbot, and your CRM stays up to date.</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; text-align: left;">
-            <div>
-                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">Conversational, not complicated</h3>
-                <p style="font-size: 16px; color: #454245;">Update a deal, add a contact, log a note &mdash; just tell Slackbot in plain language. No forms, no clicks, no navigating tabs. CRM that works the way you talk.</p>
+    <div class="hero-right">
+        <div class="hero-media">
+            <div class="floating-avatars">
+                <div class="avatar-bubble">MR</div>
+                <div class="avatar-bubble">SJ</div>
+                <div class="avatar-bubble">AL</div>
+                <div class="avatar-bubble">TP</div>
+                <div class="avatar-bubble">RG</div>
+                <div class="avatar-bubble">EC</div>
             </div>
-            <div>
-                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">AI grounded in your conversations</h3>
-                <p style="font-size: 16px; color: #454245;">Slackbot has context from your channels, your deals, your customer history. It preps meetings, drafts follow-ups, and updates records &mdash; because it already knows what happened.</p>
-            </div>
-            <div>
-                <h3 style="font-size: 20px; margin-bottom: 12px; color: #032D60;">Ready in minutes, not months</h3>
-                <p style="font-size: 16px; color: #454245;">No implementation, no consultants, no training. Sign up, opt in, and start managing customers immediately &mdash; right in the conversations you're already having.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- SECTION 1: WORK SMARTER -->
-<section class="section">
-    <div class="container">
-        <div class="section-label">Work Smarter</div>
-        <h2>CRM that works as fast as your team does</h2>
-        <p>Research accounts, prepare for meetings, and draft follow-ups in seconds. Slackbot handles the CRM work so your team can focus on closing deals and building relationships.</p>
-        <div class="testimonial">
-            "Before, I was spending hours every week juggling spreadsheets. Now I just tell Slackbot what happened after a call, and it updates everything automatically. I'm saving at least 90 minutes a day on admin work&mdash;time I can actually spend with customers."
-            <br><br>&mdash; <strong>Sia Ghazvinian</strong>, Co-founder and CEO
-        </div>
-    </div>
-</section>
-
-<!-- SECTION 2: STAY ORGANIZED -->
-<section class="section">
-    <div class="container">
-        <div class="section-label">Stay Organized</div>
-        <h2>Your contacts, deals, and cases &mdash; always up to date</h2>
-        <p>Slackbot captures customer details from your conversations and keeps your CRM current automatically. No forms to fill out, no extra apps to update. Your whole team sees the same information, in one place.</p>
-        <div class="testimonial">
-            "Having everything in one place is a game-changer&mdash;from prepping to navigating my day with the agenda view and Slackbot's suggested focus areas, I never have to leave Slack."
-            <br><br>&mdash; <strong>Em Smith</strong>, Founder
-        </div>
-    </div>
-</section>
-
-<!-- SECTION 3: SALESFORCE BUILT-IN -->
-<section class="section">
-    <div class="container">
-        <div class="section-label">Built on Salesforce</div>
-        <h2>Start here. Scale when you're ready.</h2>
-        <p>Your data syncs to Salesforce from day one. When your team needs more, everything is already there &mdash; no migration, no starting over.</p>
-        <div class="testimonial">
-            "When we launched, we couldn't justify expensive CRM software. Slack CRM gives small teams what they need right where they work&mdash;no switching tabs, no learning another platform."
-            <br><br>&mdash; <strong>George Graham</strong>, Founder and CEO
-        </div>
-    </div>
-</section>
-
-<!-- USE CASES -->
-<section class="use-cases">
-    <div class="container">
-        <h2>Full CRM capabilities, just ask Slackbot</h2>
-        <div class="use-case-grid">
-            <div class="use-case-card">
-                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/use-case-1.png" alt="Track Your Pipeline">
-                <h3>Track Your Pipeline</h3>
-                <p>See every deal on a visual board. Slackbot creates leads, updates stages, and keeps your pipeline current &mdash; just ask.</p>
-            </div>
-            <div class="use-case-card">
-                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/use-case-2-updated.png" alt="Prep for Meetings">
-                <h3>Prep for Meetings</h3>
-                <p>Ask Slackbot for a briefing before any call. Deal status, conversation history, and talking points &mdash; ready in seconds.</p>
-            </div>
-            <div class="use-case-card">
-                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/smbcrm-use-case-3.png" alt="Update Deals">
-                <h3>Update Deals</h3>
-                <p>Just finished a call? Tell Slackbot. Move deals forward, log notes, and keep records up to date without opening another app.</p>
-            </div>
-            <div class="use-case-card">
-                <img src="https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/crmsb-Use-case-5.png" alt="Speed Up Outreach and Support">
-                <h3>Speed Up Outreach and Support</h3>
-                <p>Leads from your website land in Slack instantly. Support emails become cases. Route, respond, and draft follow-ups &mdash; all in the flow of conversation.</p>
+            <div class="hero-media-content">
+                <h2>Small teams love<br>Slack CRM</h2>
+                <div class="play-button"></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- VIDEO DEMO -->
-<section class="video-section">
-    <div class="container">
-        <h2>See Slack CRM in action</h2>
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/_haADw7g8g0" allowfullscreen></iframe>
-        </div>
-    </div>
-</section>
-
-<!-- RESOURCES -->
-<section class="resources">
-    <div class="container">
-        <h2>Learn more about Slack CRM</h2>
-        <div class="resource-grid">
-            <div class="resource-card">
-                <p>How Slack CRM works with Salesforce</p>
-                <span>Read more &rarr;</span>
-            </div>
-            <div class="resource-card">
-                <p>Getting started with customer management in Slack</p>
-                <span>Read more &rarr;</span>
-            </div>
-            <div class="resource-card">
-                <p>Why growing teams choose AI-powered CRM</p>
-                <span>Read more &rarr;</span>
-            </div>
-            <div class="resource-card">
-                <p>From sign-up to first deal: a 5-minute guide</p>
-                <span>Read more &rarr;</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FEATURED TESTIMONIAL -->
-<section class="section" style="text-align: center; padding: 60px 0;">
-    <div class="container">
-        <p style="font-size: 24px; font-style: italic; max-width: 800px; margin: 0 auto 24px; color: #1d1c1d;">"At first, it felt like a small workflow improvement. But over time, we saw the compounding effect. Better conversations led to better pipeline, which led to better conversions."</p>
-        <p style="font-size: 16px; color: #616061;"><strong>Gerardo Rodriguez Phillip</strong>, Co-founder & CEO, Sparked</p>
-    </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq">
-    <div class="container">
-        <h2>Frequently Asked Questions</h2>
-
-        <div class="faq-item">
-            <h3>What is Slack CRM?</h3>
-            <p>Slack CRM is the fastest way to get started with CRM on the Salesforce platform. It lives inside Slack, where your team already works, and uses Slackbot to handle the heavy lifting &mdash; so you're up and running in minutes, not weeks.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>What can I do with Slack CRM?</h3>
-            <p>Track deals on a visual pipeline, manage contacts and accounts, capture leads from web forms, handle support cases, and let Slackbot help with meeting prep, account research, follow-up emails, and record updates &mdash; all inside Slack.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>How much does it cost?</h3>
-            <p>Slack CRM is included in the Slack Business+ plan at no additional cost. Start with a free trial &mdash; no credit card required. Supports up to 100 users.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Do I need to set up a Salesforce account separately?</h3>
-            <p>No. When you opt in to Slack CRM, a Salesforce workspace is provisioned automatically in the background. You manage everything from Slack &mdash; no separate login needed.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>What happens when my team outgrows Slack CRM?</h3>
-            <p>Upgrade whenever you're ready. All your records and history are already in Salesforce, so there's nothing to move. You just get access to more.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Can my whole team use it?</h3>
-            <p>Yes. Slack CRM supports up to 100 users on your team. Everyone sees the same customer records, deal updates, and conversation context &mdash; no per-seat CRM charges beyond your Slack plan.</p>
-        </div>
-    </div>
-</section>
-
-<!-- FOOTER CTA -->
-<section class="footer-cta">
-    <div class="container">
-        <h2>Get started with Slack CRM</h2>
-        <p>The simplicity of Slack. The power of Salesforce. No credit card required.</p>
-        <div class="cta-group">
-            <a href="#" class="btn-primary">Start Trial</a>
-            <a href="#" class="btn-secondary">Talk to Sales</a>
-        </div>
-    </div>
-</section>
+<!-- Rest of page unchanged -->
+<div class="rest-of-page">
+    <p><strong>Rest of page remains unchanged.</strong><br><br>Everything below the hero — product features, pricing cards, testimonials, FAQ, and footer — stays exactly as it appears on salesforce.com/small-business today.</p>
+</div>
 
 </body>
 </html>
