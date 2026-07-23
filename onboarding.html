@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack CRM — Your Workspace</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; height: 100vh; display: flex; overflow: hidden; background: #1a1d21; }
+
+        /* Workspace Sidebar (thin left bar) */
+        .workspace-bar { width: 68px; background: #1a1d21; display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 12px; border-right: 1px solid #333; }
+        .workspace-bar .ws-icon { width: 36px; height: 36px; border-radius: 8px; background: #4a154b; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+        .workspace-bar .ws-icon.active { outline: 2px solid #fff; outline-offset: 2px; }
+        .workspace-bar .ws-icon.sf { background: #0176d3; }
+
+        /* Channel Sidebar */
+        .sidebar { width: 260px; background: #19171d; color: #d1d2d3; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 16px 20px; border-bottom: 1px solid #333; }
+        .sidebar-header h2 { font-size: 16px; font-weight: 700; color: #fff; }
+        .sidebar-header .powered-by { font-size: 10px; color: #9a9b9d; margin-top: 2px; }
+
+        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+        .sidebar-nav .nav-item { display: flex; align-items: center; gap: 8px; padding: 4px 20px; font-size: 14px; cursor: pointer; color: #d1d2d3; }
+        .sidebar-nav .nav-item:hover { background: #27242c; }
+        .sidebar-nav .nav-item.active { background: #1164a3; color: #fff; border-radius: 4px; margin: 0 8px; padding: 4px 12px; }
+        .sidebar-nav .nav-item .icon { width: 18px; text-align: center; font-size: 13px; }
+        .sidebar-nav .section-label { font-size: 12px; font-weight: 600; color: #9a9b9d; padding: 12px 20px 4px; text-transform: none; }
+        .sidebar-nav .badge { background: #e01e5a; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin-left: auto; }
+        .sidebar-nav .channel { color: #9a9b9d; }
+        .sidebar-nav .channel::before { content: '#'; margin-right: 4px; }
+
+        /* Main Content */
+        .main-content { flex: 1; display: flex; flex-direction: column; background: #fff; }
+
+        .main-header { padding: 12px 20px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; gap: 10px; }
+        .main-header h3 { font-size: 16px; font-weight: 700; color: #1d1c1d; }
+        .main-header .bot-badge { font-size: 10px; background: #ecb22e; color: #1d1c1d; padding: 2px 6px; border-radius: 3px; font-weight: 700; }
+        .main-header .subtitle { font-size: 12px; color: #616061; margin-left: auto; }
+
+        .chat-area { flex: 1; overflow-y: auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+
+        .message { display: flex; gap: 10px; }
+        .message .avatar { width: 36px; height: 36px; border-radius: 4px; background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .message .avatar.bot { background: #4a154b; color: #fff; font-size: 14px; }
+        .message .content { flex: 1; }
+        .message .content .name { font-size: 14px; font-weight: 700; color: #1d1c1d; }
+        .message .content .name .time { font-size: 11px; font-weight: 400; color: #616061; margin-left: 8px; }
+        .message .content .text { font-size: 14px; color: #1d1c1d; line-height: 1.5; margin-top: 4px; }
+
+        .action-card { background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 14px 16px; margin-top: 8px; }
+        .action-card .card-title { font-size: 13px; font-weight: 700; color: #1d1c1d; margin-bottom: 6px; }
+        .action-card .card-item { font-size: 13px; color: #454245; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .action-card .card-item .dot { width: 6px; height: 6px; border-radius: 50%; }
+        .action-card .card-item .dot.red { background: #e01e5a; }
+        .action-card .card-item .dot.yellow { background: #ecb22e; }
+        .action-card .card-item .dot.green { background: #2eb67d; }
+        .action-card .card-item .dot.blue { background: #36c5f0; }
+
+        .contact-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 14px 16px; margin-top: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .contact-card .contact-name { font-size: 14px; font-weight: 700; color: #1d1c1d; }
+        .contact-card .contact-role { font-size: 12px; color: #616061; margin-top: 2px; }
+        .contact-card .contact-detail { font-size: 12px; color: #616061; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+        .contact-card .contact-activity { font-size: 12px; color: #1264a3; margin-top: 8px; cursor: pointer; }
+
+        .input-bar { padding: 12px 20px; border-top: 1px solid #e8e8e8; }
+        .input-bar input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1d1c1d; }
+        .input-bar input::placeholder { color: #9a9b9d; }
+
+        /* Right Panel */
+        .right-panel { width: 300px; background: #f8f8f8; border-left: 1px solid #e8e8e8; padding: 20px; overflow-y: auto; }
+        .right-panel h4 { font-size: 14px; font-weight: 700; color: #1d1c1d; margin-bottom: 12px; }
+        .right-panel .panel-section { margin-bottom: 20px; }
+        .right-panel .panel-item { font-size: 13px; color: #454245; padding: 6px 0; border-bottom: 1px solid #e8e8e8; }
+        .right-panel .panel-item:last-child { border-bottom: none; }
+        .right-panel .panel-item .label { color: #616061; font-size: 11px; }
+        .right-panel .panel-item .value { font-weight: 600; color: #1d1c1d; }
+        .right-panel .stage-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<!-- Workspace Bar -->
+<div class="workspace-bar">
+    <div class="ws-icon active">A</div>
+    <div class="ws-icon sf">SF</div>
+</div>
+
+<!-- Channel Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>Acme Inc</h2>
+        <div class="powered-by">Powered by Salesforce</div>
+    </div>
+    <div class="sidebar-nav">
+        <div class="nav-item"><span class="icon">🏠</span> Home</div>
+        <div class="nav-item"><span class="icon">💬</span> Unreads <span class="badge">4</span></div>
+        <div class="nav-item"><span class="icon">🧵</span> Threads</div>
+        <div class="nav-item active"><span class="icon">🤖</span> Slackbot</div>
+        <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+
+        <div class="section-label">Starred</div>
+        <div class="nav-item"><span class="icon">📊</span> Sales tracker</div>
+        <div class="nav-item"><span class="icon">👤</span> My Contacts <span class="badge">1</span></div>
+
+        <div class="section-label">Channels</div>
+        <div class="nav-item"><span class="channel">sales</span></div>
+        <div class="nav-item"><span class="channel">all-astrocraft</span></div>
+        <div class="nav-item"><span class="channel">social</span></div>
+
+        <div class="section-label">Direct messages</div>
+        <div class="nav-item"><span class="icon">🟢</span> Carmen Vega</div>
+        <div class="nav-item"><span class="icon">⚪</span> Harry Boone</div>
+        <div class="nav-item"><span class="icon">🟢</span> Geeta Joshi</div>
+    </div>
+</div>
+
+<!-- Main Chat Area -->
+<div class="main-content">
+    <div class="main-header">
+        <h3>Slackbot</h3>
+        <span class="bot-badge">APP</span>
+        <span class="subtitle">Your personal AI agent</span>
+    </div>
+
+    <div class="chat-area">
+        <!-- Welcome message -->
+        <div class="message">
+            <div class="avatar bot">🤖</div>
+            <div class="content">
+                <div class="name">Slackbot <span class="time">2:27 PM</span></div>
+                <div class="text">Hi! I'm Slackbot, here to help with all things sales.</div>
+                <div class="text" style="margin-top: 8px;">There's <strong>4 new action items</strong> on your list:</div>
+                <div class="action-card">
+                    <div class="card-title">Upcoming & Overdue</div>
+                    <div class="card-item"><span class="dot red"></span> Follow up with Carmen Vega — overdue</div>
+                    <div class="card-item"><span class="dot yellow"></span> Send quote to Zoom, Inc. — today</div>
+                    <div class="card-item"><span class="dot green"></span> Call with Geeta Joshi — tomorrow</div>
+                    <div class="card-item"><span class="dot blue"></span> Review deal team notes — Thursday</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slackbot capabilities -->
+        <div class="message">
+            <div class="avatar bot">🤖</div>
+            <div class="content">
+                <div class="name">Slackbot <span class="time">2:28 PM</span></div>
+                <div class="text">I can create records using spreadsheets, CSV files, meeting notes or even screenshots.</div>
+                <div class="text" style="margin-top: 6px; color: #616061; font-size: 13px;">Slackbot is connected to 1,000s of applications and can streamline your workflow.</div>
+            </div>
+        </div>
+
+        <!-- Contact activity -->
+        <div class="message">
+            <div class="avatar bot">🤖</div>
+            <div class="content">
+                <div class="name">Slackbot <span class="time">2:30 PM</span></div>
+                <div class="text">📧 Harry Boone sent an email to Carmen Vega</div>
+                <div class="contact-card">
+                    <div class="contact-name">Carmen Vega</div>
+                    <div class="contact-role">Salesperson — Zoom, Inc.</div>
+                    <div class="contact-detail">📞 Available for a call next Tuesday</div>
+                    <div class="contact-activity">Open activity item →</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email preview -->
+        <div class="message">
+            <div class="avatar" style="background: #36c5f0; color: #fff; font-size: 12px; font-weight: 700;">JC</div>
+            <div class="content">
+                <div class="name">Jordan Cohen <span class="time">2:35 PM</span></div>
+                <div class="text" style="background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px; margin-top: 4px; font-size: 13px; line-height: 1.6;">
+                    Hey Erin!<br><br>
+                    Thanks for bringing this to our attention. We've identified the issue and have a replacement ready for delivery today.<br><br>
+                    Can you provide the serial number found on the bottom of the item near the charging port? It should begin with "MW8".<br><br>
+                    Our front desk team will deliver the replacement to your location today.<br><br>
+                    Best regards,<br>
+                    Jordan Cohen
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-bar">
+        <input type="text" placeholder="Message Slackbot — try &quot;Show my pipeline&quot; or &quot;Add a contact&quot;">
+    </div>
+</div>
+
+<!-- Right Panel: Contact/Deal Details -->
+<div class="right-panel">
+    <div class="panel-section">
+        <h4>Carmen Vega</h4>
+        <div class="panel-item"><span class="label">Company</span><br><span class="value">Zoom, Inc.</span></div>
+        <div class="panel-item"><span class="label">Role</span><br><span class="value">Salesperson</span></div>
+        <div class="panel-item"><span class="label">Stage</span><br><span class="stage-badge">Negotiation</span></div>
+        <div class="panel-item"><span class="label">Deal Value</span><br><span class="value">$48,000</span></div>
+        <div class="panel-item"><span class="label">Last Activity</span><br><span class="value">Email received today</span></div>
+    </div>
+
+    <div class="panel-section">
+        <h4>Deal Team</h4>
+        <div class="panel-item"><span class="value">Geeta Joshi</span><br><span class="label">Executive Sponsor</span></div>
+        <div class="panel-item"><span class="value">Harry Boone</span><br><span class="label">Platform Co-prime</span></div>
+        <div class="panel-item"><span class="value">Jordan Cohen</span><br><span class="label">Enterprise Architect</span></div>
+    </div>
+
+    <div class="panel-section">
+        <h4>Upcoming</h4>
+        <div class="panel-item">📅 Wednesday, Aug 8th<br><span class="value">Letter/Quote</span><br><span class="label">2:00 PM - 2:30 PM</span></div>
+        <div class="panel-item">📅 Monday, Aug 2nd<br><span class="value">Random event</span><br><span class="label">3:00 PM - 4:00 PM</span></div>
+    </div>
+</div>
+
+</body>
+</html>
