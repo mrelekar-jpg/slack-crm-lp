@@ -3,215 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slack CRM — Your Workspace</title>
+    <title>Slack CRM — Getting Started</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; height: 100vh; display: flex; overflow: hidden; background: #1a1d21; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; height: 100vh; overflow: hidden; background: #1a1d21; }
 
-        /* Workspace Sidebar (thin left bar) */
-        .workspace-bar { width: 68px; background: #1a1d21; display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 12px; border-right: 1px solid #333; }
-        .workspace-bar .ws-icon { width: 36px; height: 36px; border-radius: 8px; background: #4a154b; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
-        .workspace-bar .ws-icon.active { outline: 2px solid #fff; outline-offset: 2px; }
-        .workspace-bar .ws-icon.sf { background: #0176d3; }
+        .slideshow { position: relative; width: 100%; height: 100vh; }
+        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 1; }
 
-        /* Channel Sidebar */
+        /* Shared Slack chrome */
+        .slack-frame { width: 100%; height: 100%; display: flex; background: #1a1d21; }
+
+        /* Left icon bar */
+        .icon-bar { width: 68px; background: #1a1d21; display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 8px; border-right: 1px solid #333; }
+        .icon-bar .ws-icon { width: 36px; height: 36px; border-radius: 8px; background: #611f69; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; }
+        .icon-bar .nav-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #9a9b9d; font-size: 18px; cursor: pointer; border-radius: 8px; }
+        .icon-bar .nav-icon.active { background: #27242c; color: #fff; }
+        .icon-bar .nav-label { font-size: 9px; color: #9a9b9d; margin-top: -4px; }
+
+        /* Sidebar */
         .sidebar { width: 260px; background: #19171d; color: #d1d2d3; display: flex; flex-direction: column; }
-        .sidebar-header { padding: 16px 20px; border-bottom: 1px solid #333; }
+        .sidebar-header { padding: 14px 18px; display: flex; align-items: center; gap: 8px; }
         .sidebar-header h2 { font-size: 16px; font-weight: 700; color: #fff; }
-        .sidebar-header .powered-by { font-size: 10px; color: #9a9b9d; margin-top: 2px; }
-
-        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
-        .sidebar-nav .nav-item { display: flex; align-items: center; gap: 8px; padding: 4px 20px; font-size: 14px; cursor: pointer; color: #d1d2d3; }
+        .sidebar-header .chevron { font-size: 12px; color: #9a9b9d; }
+        .sidebar-nav { padding: 8px 0; flex: 1; overflow-y: auto; }
+        .sidebar-nav .nav-item { display: flex; align-items: center; gap: 8px; padding: 4px 18px; font-size: 14px; color: #d1d2d3; cursor: pointer; }
         .sidebar-nav .nav-item:hover { background: #27242c; }
-        .sidebar-nav .nav-item.active { background: #1164a3; color: #fff; border-radius: 4px; margin: 0 8px; padding: 4px 12px; }
-        .sidebar-nav .nav-item .icon { width: 18px; text-align: center; font-size: 13px; }
-        .sidebar-nav .section-label { font-size: 12px; font-weight: 600; color: #9a9b9d; padding: 12px 20px 4px; text-transform: none; }
+        .sidebar-nav .nav-item.active { background: rgba(97, 31, 105, 0.3); color: #fff; border-radius: 4px; margin: 0 8px; padding: 4px 10px; }
+        .sidebar-nav .section-label { font-size: 12px; font-weight: 600; color: #9a9b9d; padding: 12px 18px 4px; }
         .sidebar-nav .badge { background: #e01e5a; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin-left: auto; }
-        .sidebar-nav .channel { color: #9a9b9d; }
-        .sidebar-nav .channel::before { content: '#'; margin-right: 4px; }
+        .sidebar-nav .icon { width: 18px; text-align: center; font-size: 14px; }
+        .sidebar-nav .sf-icon { width: 18px; height: 18px; border-radius: 50%; background: #0176d3; display: flex; align-items: center; justify-content: center; }
+        .sidebar-nav .sf-icon::after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+        .add-item { color: #9a9b9d; font-size: 13px; }
 
-        /* Main Content */
-        .main-content { flex: 1; display: flex; flex-direction: column; background: #fff; }
-
-        .main-header { padding: 12px 20px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; gap: 10px; }
+        /* Main content area */
+        .main-area { flex: 1; background: #fff; display: flex; flex-direction: column; position: relative; }
+        .main-header { padding: 12px 20px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; justify-content: space-between; }
         .main-header h3 { font-size: 16px; font-weight: 700; color: #1d1c1d; }
-        .main-header .bot-badge { font-size: 10px; background: #ecb22e; color: #1d1c1d; padding: 2px 6px; border-radius: 3px; font-weight: 700; }
-        .main-header .subtitle { font-size: 12px; color: #616061; margin-left: auto; }
+        .main-header .actions { display: flex; gap: 8px; }
+        .main-header .btn { padding: 6px 14px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; font-weight: 600; color: #1d1c1d; background: #fff; cursor: pointer; }
+        .main-header .btn:first-child { background: #f8f8f8; }
+        .main-body { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; }
 
-        .chat-area { flex: 1; overflow-y: auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+        /* Search bar */
+        .search-bar { position: absolute; top: 0; left: 0; right: 0; height: 44px; background: #421d47; display: flex; align-items: center; justify-content: center; }
+        .search-bar input { width: 500px; padding: 6px 16px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: #fff; font-size: 13px; }
+        .search-bar input::placeholder { color: rgba(255,255,255,0.6); }
 
-        .message { display: flex; gap: 10px; }
-        .message .avatar { width: 36px; height: 36px; border-radius: 4px; background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .message .avatar.bot { background: #4a154b; color: #fff; font-size: 14px; }
-        .message .content { flex: 1; }
-        .message .content .name { font-size: 14px; font-weight: 700; color: #1d1c1d; }
-        .message .content .name .time { font-size: 11px; font-weight: 400; color: #616061; margin-left: 8px; }
-        .message .content .text { font-size: 14px; color: #1d1c1d; line-height: 1.5; margin-top: 4px; }
+        /* === SLIDE 1: Welcome Modal === */
+        .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; }
+        .welcome-modal { background: #fff; border-radius: 12px; width: 680px; max-width: 90%; padding: 48px; display: flex; gap: 32px; align-items: center; position: relative; }
+        .welcome-modal .close-btn { position: absolute; top: 16px; right: 16px; font-size: 24px; color: #666; cursor: pointer; background: none; border: none; }
+        .welcome-modal .modal-left { flex: 1; }
+        .welcome-modal .modal-left h2 { font-size: 28px; font-weight: 700; color: #1d1c1d; margin-bottom: 16px; }
+        .welcome-modal .modal-left p { font-size: 15px; color: #454245; line-height: 1.6; margin-bottom: 12px; }
+        .welcome-modal .modal-left .btn-setup { display: inline-block; background: #007a5a; color: #fff; padding: 12px 24px; border-radius: 4px; font-size: 15px; font-weight: 700; margin-top: 16px; border: none; cursor: pointer; }
+        .welcome-modal .modal-right { width: 220px; }
+        .welcome-modal .modal-right .preview-window { background: #f0e6f6; border-radius: 8px; padding: 16px; position: relative; }
+        .welcome-modal .modal-right .preview-window::before { content: ''; position: absolute; top: 8px; left: 12px; width: 8px; height: 8px; border-radius: 50%; background: #e01e5a; box-shadow: 14px 0 0 #ecb22e, 28px 0 0 #2eb67d; }
+        .preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 20px; }
+        .preview-card { background: #fff; border-radius: 4px; padding: 8px 6px; border-top: 3px solid #ccc; }
+        .preview-card:nth-child(1) .card-line, .preview-card:nth-child(5) .card-line { background: #ddd; }
+        .preview-card:nth-child(2) { border-top-color: #f0c8d8; }
+        .preview-card:nth-child(3) { border-top-color: #c8e0c8; }
+        .preview-card:nth-child(4) { border-top-color: #c8e8f8; }
+        .preview-card:nth-child(5) { border-top-color: #f0c8d8; }
+        .preview-card:nth-child(6) { border-top-color: #c8e0c8; }
+        .preview-card:nth-child(7) { border-top-color: #c8e8f8; }
+        .card-line { height: 6px; background: #e8e8e8; border-radius: 3px; margin-bottom: 4px; }
+        .card-line:last-child { width: 60%; }
 
-        .action-card { background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 14px 16px; margin-top: 8px; }
-        .action-card .card-title { font-size: 13px; font-weight: 700; color: #1d1c1d; margin-bottom: 6px; }
-        .action-card .card-item { font-size: 13px; color: #454245; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
-        .action-card .card-item .dot { width: 6px; height: 6px; border-radius: 50%; }
-        .action-card .card-item .dot.red { background: #e01e5a; }
-        .action-card .card-item .dot.yellow { background: #ecb22e; }
-        .action-card .card-item .dot.green { background: #2eb67d; }
-        .action-card .card-item .dot.blue { background: #36c5f0; }
+        /* === SLIDE 2: Empty Sales Tracker === */
+        .slackbot-welcome { text-align: center; }
+        .slackbot-avatar { width: 80px; height: 80px; margin: 0 auto 20px; }
+        .slackbot-avatar img { width: 100%; height: 100%; }
+        .slackbot-emoji { font-size: 64px; display: block; margin-bottom: 20px; }
+        .slackbot-text { font-size: 18px; color: #1d1c1d; font-weight: 400; }
 
-        .contact-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 14px 16px; margin-top: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .contact-card .contact-name { font-size: 14px; font-weight: 700; color: #1d1c1d; }
-        .contact-card .contact-role { font-size: 12px; color: #616061; margin-top: 2px; }
-        .contact-card .contact-detail { font-size: 12px; color: #616061; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
-        .contact-card .contact-activity { font-size: 12px; color: #1264a3; margin-top: 8px; cursor: pointer; }
+        /* Gradient background */
+        .gradient-bg { background: linear-gradient(180deg, #fff 0%, #f0f8f4 40%, #fdf4ee 70%, #f8f4f0 100%); }
 
-        .input-bar { padding: 12px 20px; border-top: 1px solid #e8e8e8; }
-        .input-bar input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1d1c1d; }
-        .input-bar input::placeholder { color: #9a9b9d; }
+        /* === SLIDE 3: Sales tracker with cards === */
+        .setup-content { text-align: center; }
+        .setup-content .bot-with-cards { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px; }
+        .mini-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .mini-card { width: 60px; background: #fff; border-radius: 4px; padding: 6px; border-top: 3px solid #36c5f0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .mini-card:nth-child(2) { border-top-color: #ecb22e; }
+        .mini-card:nth-child(3) { border-top-color: #ecb22e; }
+        .mini-card:nth-child(4) { border-top-color: #2eb67d; }
+        .mini-card:nth-child(5) { border-top-color: #36c5f0; }
+        .mini-card:nth-child(6) { border-top-color: #ecb22e; }
+        .mini-card:nth-child(7) { border-top-color: #2eb67d; }
+        .mini-card .mc-line { height: 4px; background: #e8e8e8; border-radius: 2px; margin-bottom: 3px; }
+        .mini-card .mc-line:last-child { width: 50%; }
+        .setup-text { font-size: 16px; color: #1d1c1d; line-height: 1.6; margin-bottom: 8px; }
+        .setup-subtext { font-size: 15px; color: #454245; margin-bottom: 20px; }
+        .arrow-btn { width: 40px; height: 40px; border-radius: 50%; background: #4a154b; color: #fff; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
 
-        /* Right Panel */
-        .right-panel { width: 300px; background: #f8f8f8; border-left: 1px solid #e8e8e8; padding: 20px; overflow-y: auto; }
-        .right-panel h4 { font-size: 14px; font-weight: 700; color: #1d1c1d; margin-bottom: 12px; }
-        .right-panel .panel-section { margin-bottom: 20px; }
-        .right-panel .panel-item { font-size: 13px; color: #454245; padding: 6px 0; border-bottom: 1px solid #e8e8e8; }
-        .right-panel .panel-item:last-child { border-bottom: none; }
-        .right-panel .panel-item .label { color: #616061; font-size: 11px; }
-        .right-panel .panel-item .value { font-weight: 600; color: #1d1c1d; }
-        .right-panel .stage-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+        /* === SLIDE 4: Options screen === */
+        .options-screen { text-align: left; max-width: 580px; width: 100%; }
+        .options-screen .bot-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .options-screen .bot-header .bot-name { font-size: 16px; font-weight: 700; color: #1d1c1d; }
+        .options-screen .bot-msg { font-size: 15px; color: #1d1c1d; line-height: 1.6; margin-bottom: 8px; }
+        .options-screen .bot-msg-sub { font-size: 15px; color: #1d1c1d; margin-bottom: 20px; }
+        .option-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: box-shadow 0.15s; }
+        .option-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .option-card .opt-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .option-card .opt-icon.purple { background: #f0e6f6; }
+        .option-card .opt-icon.blue { background: #e6f4f8; }
+        .option-card .opt-icon.pink { background: #fce8ee; }
+        .option-card .opt-text { flex: 1; }
+        .option-card .opt-text h4 { font-size: 14px; font-weight: 700; color: #1d1c1d; margin-bottom: 4px; }
+        .option-card .opt-text p { font-size: 13px; color: #616061; line-height: 1.4; }
+        .option-card .opt-arrow { width: 32px; height: 32px; border-radius: 50%; background: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #616061; font-size: 16px; }
+        .ai-disclaimer { font-size: 12px; color: #9a9b9d; margin-top: 16px; }
+
+        /* Progress bar */
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #611f69; z-index: 1000; transition: width 0.3s linear; }
+
+        /* Slide counter */
+        .slide-controls { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 200; }
+        .slide-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.2s; }
+        .slide-dot.active { background: #fff; width: 24px; border-radius: 4px; }
+
+        /* Replay button */
+        .replay-btn { position: fixed; bottom: 24px; right: 24px; background: #4a154b; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; z-index: 200; display: none; }
+        .replay-btn.visible { display: block; }
     </style>
 </head>
 <body>
 
-<!-- Workspace Bar -->
-<div class="workspace-bar">
-    <div class="ws-icon active">A</div>
-    <div class="ws-icon sf">SF</div>
-</div>
+<div class="progress-bar" id="progressBar"></div>
 
-<!-- Channel Sidebar -->
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h2>Acme Inc</h2>
-        <div class="powered-by">Powered by Salesforce</div>
-    </div>
-    <div class="sidebar-nav">
-        <div class="nav-item"><span class="icon">🏠</span> Home</div>
-        <div class="nav-item"><span class="icon">💬</span> Unreads <span class="badge">4</span></div>
-        <div class="nav-item"><span class="icon">🧵</span> Threads</div>
-        <div class="nav-item active"><span class="icon">🤖</span> Slackbot</div>
-        <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+<div class="slideshow" id="slideshow">
 
-        <div class="section-label">Starred</div>
-        <div class="nav-item"><span class="icon">📊</span> Sales tracker</div>
-        <div class="nav-item"><span class="icon">👤</span> My Contacts <span class="badge">1</span></div>
-
-        <div class="section-label">Channels</div>
-        <div class="nav-item"><span class="channel">sales</span></div>
-        <div class="nav-item"><span class="channel">all-astrocraft</span></div>
-        <div class="nav-item"><span class="channel">social</span></div>
-
-        <div class="section-label">Direct messages</div>
-        <div class="nav-item"><span class="icon">🟢</span> Carmen Vega</div>
-        <div class="nav-item"><span class="icon">⚪</span> Harry Boone</div>
-        <div class="nav-item"><span class="icon">🟢</span> Geeta Joshi</div>
-    </div>
-</div>
-
-<!-- Main Chat Area -->
-<div class="main-content">
-    <div class="main-header">
-        <h3>Slackbot</h3>
-        <span class="bot-badge">APP</span>
-        <span class="subtitle">Your personal AI agent</span>
-    </div>
-
-    <div class="chat-area">
-        <!-- Welcome message -->
-        <div class="message">
-            <div class="avatar bot">🤖</div>
-            <div class="content">
-                <div class="name">Slackbot <span class="time">2:27 PM</span></div>
-                <div class="text">Hi! I'm Slackbot, here to help with all things sales.</div>
-                <div class="text" style="margin-top: 8px;">There's <strong>4 new action items</strong> on your list:</div>
-                <div class="action-card">
-                    <div class="card-title">Upcoming & Overdue</div>
-                    <div class="card-item"><span class="dot red"></span> Follow up with Carmen Vega — overdue</div>
-                    <div class="card-item"><span class="dot yellow"></span> Send quote to Zoom, Inc. — today</div>
-                    <div class="card-item"><span class="dot green"></span> Call with Geeta Joshi — tomorrow</div>
-                    <div class="card-item"><span class="dot blue"></span> Review deal team notes — Thursday</div>
+    <!-- SLIDE 1: Welcome Modal -->
+    <div class="slide active" data-slide="0">
+        <div class="slack-frame">
+            <div class="icon-bar">
+                <div class="ws-icon">A</div>
+                <div style="height: 8px;"></div>
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">DMs</div>
+                <div class="nav-icon active">🔔</div>
+                <div class="nav-label">Activity</div>
+                <div class="nav-icon">•••</div>
+                <div class="nav-label">More</div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Acme Inc</h2>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="sidebar-nav">
+                    <div class="nav-item"><span class="icon">📥</span> Unreads <span class="badge">1</span></div>
+                    <div class="nav-item"><span class="icon">🧵</span> Threads</div>
+                    <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+                    <div class="section-label">Starred</div>
+                    <div class="nav-item"><span class="icon">#</span> announcements</div>
+                    <div class="nav-item"><span class="icon">#</span> general</div>
+                    <div class="nav-item"><span class="icon">#</span> help-desk</div>
+                    <div class="nav-item"><span class="icon">#</span> marketing</div>
+                    <div class="nav-item"><span class="icon">#</span> hiring</div>
+                    <div class="section-label">Projects</div>
+                    <div class="nav-item"><span class="icon">#</span> project-x</div>
+                    <div class="nav-item"><span class="icon">🔒</span> acme-...</div>
+                    <div class="section-label">Channels</div>
+                    <div class="nav-item"><span class="icon">#</span> sales</div>
+                    <div class="nav-item"><span class="icon">#</span> support</div>
+                    <div class="nav-item"><span class="icon">#</span> user-f...</div>
+                    <div class="section-label">Direct messages</div>
+                    <div class="nav-item"><span class="icon">🟢</span> Arcadio Buendia <span class="badge">1</span></div>
+                    <div class="nav-item"><span class="icon">⚪</span> Harry Boone</div>
                 </div>
             </div>
-        </div>
-
-        <!-- Slackbot capabilities -->
-        <div class="message">
-            <div class="avatar bot">🤖</div>
-            <div class="content">
-                <div class="name">Slackbot <span class="time">2:28 PM</span></div>
-                <div class="text">I can create records using spreadsheets, CSV files, meeting notes or even screenshots.</div>
-                <div class="text" style="margin-top: 6px; color: #616061; font-size: 13px;">Slackbot is connected to 1,000s of applications and can streamline your workflow.</div>
-            </div>
-        </div>
-
-        <!-- Contact activity -->
-        <div class="message">
-            <div class="avatar bot">🤖</div>
-            <div class="content">
-                <div class="name">Slackbot <span class="time">2:30 PM</span></div>
-                <div class="text">📧 Harry Boone sent an email to Carmen Vega</div>
-                <div class="contact-card">
-                    <div class="contact-name">Carmen Vega</div>
-                    <div class="contact-role">Salesperson — Zoom, Inc.</div>
-                    <div class="contact-detail">📞 Available for a call next Tuesday</div>
-                    <div class="contact-activity">Open activity item →</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Email preview -->
-        <div class="message">
-            <div class="avatar" style="background: #36c5f0; color: #fff; font-size: 12px; font-weight: 700;">JC</div>
-            <div class="content">
-                <div class="name">Jordan Cohen <span class="time">2:35 PM</span></div>
-                <div class="text" style="background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px; margin-top: 4px; font-size: 13px; line-height: 1.6;">
-                    Hey Erin!<br><br>
-                    Thanks for bringing this to our attention. We've identified the issue and have a replacement ready for delivery today.<br><br>
-                    Can you provide the serial number found on the bottom of the item near the charging port? It should begin with "MW8".<br><br>
-                    Our front desk team will deliver the replacement to your location today.<br><br>
-                    Best regards,<br>
-                    Jordan Cohen
+            <div class="main-area" style="background: #f8f8f8;">
+                <div class="modal-overlay">
+                    <div class="welcome-modal">
+                        <button class="close-btn">&times;</button>
+                        <div class="modal-left">
+                            <h2>You've got Slack CRM</h2>
+                            <p>Get ready to close deals faster and keep your customers happy, together with your team.</p>
+                            <p>To start, Slackbot will help you set up the sales tracker, your home for tracking leads and opportunities.</p>
+                            <button class="btn-setup">Set Up Sales Tracker</button>
+                        </div>
+                        <div class="modal-right">
+                            <div class="preview-window">
+                                <div class="preview-grid">
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                    <div class="preview-card"><div class="card-line"></div><div class="card-line"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="input-bar">
-        <input type="text" placeholder="Message Slackbot — try &quot;Show my pipeline&quot; or &quot;Add a contact&quot;">
+    <!-- SLIDE 2: Empty Sales Tracker -->
+    <div class="slide" data-slide="1">
+        <div class="slack-frame">
+            <div class="icon-bar">
+                <div class="ws-icon">A</div>
+                <div style="height: 8px;"></div>
+                <div class="nav-icon">☀️</div>
+                <div class="nav-label">Today</div>
+                <div class="nav-icon active">🏠</div>
+                <div class="nav-label">Home</div>
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">Activity</div>
+                <div class="nav-icon">•••</div>
+                <div class="nav-label">More</div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Acme Inc</h2>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="sidebar-nav">
+                    <div class="nav-item"><span class="icon">📥</span> Unreads</div>
+                    <div class="nav-item"><span class="icon">🧵</span> Threads</div>
+                    <div class="nav-item"><span class="icon">🎧</span> Huddles</div>
+                    <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+                    <div class="section-label">Salesforce</div>
+                    <div class="nav-item active"><span class="sf-icon"></span> Sales tracker</div>
+                    <div class="section-label">Starred</div>
+                    <div class="nav-item"><span class="icon">#</span> sales</div>
+                    <div class="nav-item"><span class="icon">#</span> all-astrocraft</div>
+                    <div class="nav-item"><span class="icon">#</span> social</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add channels</div>
+                    <div class="section-label">Direct messages</div>
+                    <div class="nav-item"><span class="icon">🤖</span> Slackbot</div>
+                    <div class="nav-item"><span class="icon">🟢</span> Carmen Vega</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add people</div>
+                    <div class="section-label">Apps</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add apps</div>
+                </div>
+            </div>
+            <div class="main-area gradient-bg">
+                <div class="main-header">
+                    <h3>Sales tracker</h3>
+                    <div class="actions">
+                        <button class="btn">+ New</button>
+                        <button class="btn">Share</button>
+                    </div>
+                </div>
+                <div class="main-body">
+                    <div class="slackbot-welcome">
+                        <div class="slackbot-emoji">🤖</div>
+                        <p class="slackbot-text">Hi! I'm Slackbot, here to help with all things sales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Sales Tracker Setup -->
+    <div class="slide" data-slide="2">
+        <div class="slack-frame">
+            <div class="icon-bar">
+                <div class="ws-icon">A</div>
+                <div style="height: 8px;"></div>
+                <div class="nav-icon">☀️</div>
+                <div class="nav-label">Today</div>
+                <div class="nav-icon active">🏠</div>
+                <div class="nav-label">Home</div>
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">Activity</div>
+                <div class="nav-icon">•••</div>
+                <div class="nav-label">More</div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Acme Inc</h2>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="sidebar-nav">
+                    <div class="nav-item"><span class="icon">📥</span> Unreads</div>
+                    <div class="nav-item"><span class="icon">🧵</span> Threads</div>
+                    <div class="nav-item"><span class="icon">🎧</span> Huddles</div>
+                    <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+                    <div class="section-label">Salesforce</div>
+                    <div class="nav-item active"><span class="sf-icon"></span> Sales tracker</div>
+                    <div class="section-label">Starred</div>
+                    <div class="nav-item"><span class="icon">#</span> sales</div>
+                    <div class="nav-item"><span class="icon">#</span> all-astrocraft</div>
+                    <div class="nav-item"><span class="icon">#</span> social</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add channels</div>
+                    <div class="section-label">Direct messages</div>
+                    <div class="nav-item"><span class="icon">🤖</span> Slackbot</div>
+                    <div class="nav-item"><span class="icon">🟢</span> Carmen Vega</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add people</div>
+                    <div class="section-label">Apps</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add apps</div>
+                </div>
+            </div>
+            <div class="main-area gradient-bg">
+                <div class="main-header">
+                    <h3>Sales tracker</h3>
+                    <div class="actions">
+                        <button class="btn">+ New</button>
+                        <button class="btn">Share</button>
+                    </div>
+                </div>
+                <div class="main-body">
+                    <div class="setup-content">
+                        <div class="bot-with-cards">
+                            <span style="font-size: 56px;">🤖</span>
+                            <div class="mini-cards">
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                                <div class="mini-card"><div class="mc-line"></div><div class="mc-line"></div></div>
+                            </div>
+                        </div>
+                        <p class="setup-text">Hi! I'm Slackbot, here to help with all things sales.</p>
+                        <p class="setup-subtext">Let's set up the sales tracker, where we'll manage<br>your pipeline and close deals faster.</p>
+                        <button class="arrow-btn">→</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Options -->
+    <div class="slide" data-slide="3">
+        <div class="slack-frame">
+            <div class="icon-bar">
+                <div class="ws-icon">A</div>
+                <div style="height: 8px;"></div>
+                <div class="nav-icon">☀️</div>
+                <div class="nav-label">Today</div>
+                <div class="nav-icon active">🏠</div>
+                <div class="nav-label">Home</div>
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">Activity</div>
+                <div class="nav-icon">•••</div>
+                <div class="nav-label">More</div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Acme Inc</h2>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="sidebar-nav">
+                    <div class="nav-item"><span class="icon">📥</span> Unreads</div>
+                    <div class="nav-item"><span class="icon">🧵</span> Threads</div>
+                    <div class="nav-item"><span class="icon">🎧</span> Huddles</div>
+                    <div class="nav-item"><span class="icon">📝</span> Drafts & sent</div>
+                    <div class="section-label">Salesforce</div>
+                    <div class="nav-item active"><span class="sf-icon"></span> Sales tracker</div>
+                    <div class="section-label">Starred</div>
+                    <div class="nav-item"><span class="icon">#</span> sales</div>
+                    <div class="nav-item"><span class="icon">#</span> all-astrocraft</div>
+                    <div class="nav-item"><span class="icon">#</span> social</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add channels</div>
+                    <div class="section-label">Direct messages</div>
+                    <div class="nav-item"><span class="icon">🤖</span> Slackbot</div>
+                    <div class="nav-item"><span class="icon">🟢</span> Carmen Vega</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add people</div>
+                    <div class="section-label">Apps</div>
+                    <div class="nav-item add-item"><span class="icon">+</span> Add apps</div>
+                </div>
+            </div>
+            <div class="main-area" style="background: #fff;">
+                <div class="main-header">
+                    <h3>Sales tracker</h3>
+                    <div class="actions">
+                        <button class="btn">+ New</button>
+                        <button class="btn">Share</button>
+                    </div>
+                </div>
+                <div class="main-body" style="align-items: flex-start; justify-content: flex-start; padding: 32px 40px;">
+                    <div class="options-screen">
+                        <div class="bot-header">
+                            <span style="font-size: 32px;">🤖</span>
+                            <span class="bot-name">Slackbot</span>
+                        </div>
+                        <p class="bot-msg">To set up the sales tracker, I'll add info about your potential customers.</p>
+                        <p class="bot-msg-sub">You've got a few options:</p>
+
+                        <div class="option-card">
+                            <div class="opt-icon purple">📋</div>
+                            <div class="opt-text">
+                                <h4>Add info from outside of Slack</h4>
+                                <p>Slackbot can create records from spreadsheets, notes, emails, or anything you want to share.</p>
+                            </div>
+                            <div class="opt-arrow">→</div>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="opt-icon blue">🔍</div>
+                            <div class="opt-text">
+                                <h4>Search in Slack using Slackbot</h4>
+                                <p>Create records based on conversations found in Slack or any connected calendars and inboxes.</p>
+                            </div>
+                            <div class="opt-arrow">→</div>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="opt-icon pink">🎬</div>
+                            <div class="opt-text">
+                                <h4>See the Sales Tracker in action</h4>
+                                <p>New to this? Watch a quick video about managing your sales and more in Slack CRM.</p>
+                            </div>
+                            <div class="opt-arrow">→</div>
+                        </div>
+
+                        <p class="ai-disclaimer">This tool uses generative AI, so some info may be inaccurate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Right Panel: Contact/Deal Details -->
-<div class="right-panel">
-    <div class="panel-section">
-        <h4>Carmen Vega</h4>
-        <div class="panel-item"><span class="label">Company</span><br><span class="value">Zoom, Inc.</span></div>
-        <div class="panel-item"><span class="label">Role</span><br><span class="value">Salesperson</span></div>
-        <div class="panel-item"><span class="label">Stage</span><br><span class="stage-badge">Negotiation</span></div>
-        <div class="panel-item"><span class="label">Deal Value</span><br><span class="value">$48,000</span></div>
-        <div class="panel-item"><span class="label">Last Activity</span><br><span class="value">Email received today</span></div>
-    </div>
-
-    <div class="panel-section">
-        <h4>Deal Team</h4>
-        <div class="panel-item"><span class="value">Geeta Joshi</span><br><span class="label">Executive Sponsor</span></div>
-        <div class="panel-item"><span class="value">Harry Boone</span><br><span class="label">Platform Co-prime</span></div>
-        <div class="panel-item"><span class="value">Jordan Cohen</span><br><span class="label">Enterprise Architect</span></div>
-    </div>
-
-    <div class="panel-section">
-        <h4>Upcoming</h4>
-        <div class="panel-item">📅 Wednesday, Aug 8th<br><span class="value">Letter/Quote</span><br><span class="label">2:00 PM - 2:30 PM</span></div>
-        <div class="panel-item">📅 Monday, Aug 2nd<br><span class="value">Random event</span><br><span class="label">3:00 PM - 4:00 PM</span></div>
-    </div>
+<div class="slide-controls" id="slideControls">
+    <div class="slide-dot active" data-goto="0"></div>
+    <div class="slide-dot" data-goto="1"></div>
+    <div class="slide-dot" data-goto="2"></div>
+    <div class="slide-dot" data-goto="3"></div>
 </div>
+
+<button class="replay-btn" id="replayBtn">↻ Replay</button>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slide-dot');
+    const progressBar = document.getElementById('progressBar');
+    const replayBtn = document.getElementById('replayBtn');
+    let current = 0;
+    let timer = null;
+    const DURATION = 3000;
+
+    function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        current = index;
+        progressBar.style.width = ((index + 1) / slides.length * 100) + '%';
+
+        if (index === slides.length - 1) {
+            replayBtn.classList.add('visible');
+        } else {
+            replayBtn.classList.remove('visible');
+        }
+    }
+
+    function nextSlide() {
+        if (current < slides.length - 1) {
+            showSlide(current + 1);
+        } else {
+            clearInterval(timer);
+        }
+    }
+
+    function startSlideshow() {
+        showSlide(0);
+        replayBtn.classList.remove('visible');
+        clearInterval(timer);
+        timer = setInterval(nextSlide, DURATION);
+    }
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            clearInterval(timer);
+            showSlide(parseInt(dot.dataset.goto));
+            timer = setInterval(nextSlide, DURATION);
+        });
+    });
+
+    replayBtn.addEventListener('click', startSlideshow);
+
+    startSlideshow();
+</script>
 
 </body>
 </html>
