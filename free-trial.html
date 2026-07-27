@@ -14,101 +14,144 @@
         }
 
         /* === NAV === */
-        .global-nav {
-            background: #fff;
-            padding: 0 40px;
-            height: 56px;
+        .nav {
+            padding: 16px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #e5e5e5;
         }
-        .global-nav-left { display: flex; align-items: center; gap: 28px; }
-        .sf-logo img { height: 25px; width: auto; }
-        .global-nav-links { display: flex; gap: 22px; }
-        .global-nav-links a { text-decoration: none; color: #032d60; font-size: 14px; }
-        .global-nav-links a:hover { text-decoration: underline; }
-        .global-nav-right { display: flex; align-items: center; gap: 20px; }
-        .global-nav-right a { text-decoration: none; color: #032d60; font-size: 14px; }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .nav-logo svg { width: 36px; height: 26px; }
+        .nav-logo span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #032d60;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #032d60;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .nav-links a:hover { text-decoration: underline; }
+        .nav-right {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-outline {
+            padding: 10px 22px;
+            border: 2px solid #0176d3;
+            border-radius: 4px;
+            color: #0176d3;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            background: #fff;
+        }
+        .btn-outline:hover { background: #eaf5fe; }
+        .btn-filled {
+            padding: 10px 22px;
+            border: 2px solid #0176d3;
+            border-radius: 4px;
+            color: #fff;
+            background: #0176d3;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .btn-filled:hover { background: #014486; }
 
         /* === HERO === */
         .hero {
-            background: linear-gradient(135deg, #e8f0fc 0%, #d4e8fc 100%);
-            padding: 56px 40px 0;
             text-align: center;
-            position: relative;
+            padding: 40px 40px 0;
         }
         .hero h1 {
-            font-size: 40px;
+            font-size: 48px;
             font-weight: 700;
             color: #032d60;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            font-family: Georgia, 'Times New Roman', serif;
         }
-        .hero .subtitle {
+        .hero p {
             font-size: 18px;
             color: #444;
-            margin-bottom: 40px;
         }
-        .hero-image-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .hero-image-wrapper img {
+
+        /* Cloud decoration */
+        .clouds {
             width: 100%;
-            display: block;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cellipse cx='200' cy='70' rx='120' ry='50' fill='%23eaf5fe'/%3E%3Cellipse cx='350' cy='75' rx='80' ry='35' fill='%23eaf5fe'/%3E%3Cellipse cx='1200' cy='65' rx='100' ry='45' fill='%23eaf5fe'/%3E%3Cellipse cx='1320' cy='72' rx='70' ry='30' fill='%23eaf5fe'/%3E%3C/svg%3E") no-repeat center;
+            background-size: cover;
         }
-        .hero-image-placeholder {
-            max-width: 800px;
+
+        /* === CARDS SECTION === */
+        .cards-section {
+            padding: 0 40px 80px;
+            max-width: 1280px;
             margin: 0 auto;
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #f0e8fc, #e8f4fc);
-            border-radius: 8px 8px 0 0;
+        }
+
+        .cards-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        .trial-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e8e8e8;
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: #dfeefb;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
-        }
-        .hero-image-placeholder span {
-            color: #999;
-            font-size: 14px;
-        }
-
-        /* === TRIALS SECTION === */
-        .trials-section {
-            padding: 64px 40px 80px;
-            background: #fff;
-        }
-        .trials-inner {
-            max-width: 1060px;
-            margin: 0 auto;
-        }
-        .trials-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-        .trial-card {
-            background: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 24px 20px;
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.15s;
-        }
-        .trial-card:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        }
-        .trial-card.featured {
-            border: 1px solid #e5e5e5;
+            overflow: hidden;
             position: relative;
         }
-        .trial-card.featured .card-badge {
-            position: absolute;
-            top: -10px;
-            left: 16px;
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-image .placeholder-text {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .card-body {
+            padding: 28px 28px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body .card-badge {
+            display: inline-block;
             background: #4a154b;
             color: #fff;
             font-size: 10px;
@@ -117,369 +160,188 @@
             border-radius: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            width: fit-content;
         }
-        .trial-card h3 {
-            font-size: 18px;
+        .card-body h3 {
+            font-size: 28px;
             font-weight: 700;
             color: #032d60;
-            margin-bottom: 8px;
+            font-style: italic;
+            margin-bottom: 12px;
+            font-family: Georgia, 'Times New Roman', serif;
         }
-        .trial-card.featured h3 {
+        .card-body h3.no-italic {
             font-style: normal;
         }
-        .trial-card h3:not(.trial-card.featured h3) {
-            font-style: italic;
-        }
-        .trial-card p {
-            font-size: 14px;
+        .card-body p {
+            font-size: 16px;
             color: #444;
             line-height: 1.6;
             flex: 1;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
-        .trial-card .no-cc {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 16px;
-            font-style: italic;
-        }
-        .trial-card .btn-trial {
-            display: block;
-            text-align: center;
-            padding: 11px 20px;
-            background: #0176d3;
-            color: #fff;
+        .card-body .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            border: 2px solid #0176d3;
             border-radius: 4px;
-            font-size: 14px;
+            color: #0176d3;
+            font-size: 15px;
             font-weight: 700;
             text-decoration: none;
-            transition: background 0.15s;
+            background: #fff;
+            width: fit-content;
         }
-        .trial-card .btn-trial:hover { background: #014486; }
-        .trial-card.featured .btn-trial {
-            background: #4a154b;
+        .card-body .btn-start:hover { background: #eaf5fe; }
+        .card-body .btn-start.purple {
+            border-color: #4a154b;
+            color: #4a154b;
         }
-        .trial-card.featured .btn-trial:hover { background: #611f69; }
+        .card-body .btn-start.purple:hover { background: #f8f0f9; }
 
-        /* === INDUSTRY SECTION === */
-        .industry-section {
-            padding: 64px 40px 80px;
+        /* Rest of page placeholder */
+        .rest-of-page {
+            padding: 60px 40px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
             background: #f4f6f9;
         }
-        .industry-inner {
-            max-width: 1060px;
+        .rest-of-page p {
+            max-width: 500px;
             margin: 0 auto;
-        }
-        .industry-inner h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #032d60;
-            margin-bottom: 28px;
-        }
-        .industry-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-        .industry-card {
-            background: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 24px 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .industry-card h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #032d60;
-            margin-bottom: 8px;
-        }
-        .industry-card p {
-            font-size: 13px;
-            color: #444;
-            line-height: 1.5;
-            flex: 1;
-            margin-bottom: 16px;
-        }
-        .industry-card .btn-trial {
-            display: block;
-            text-align: center;
-            padding: 10px 16px;
-            background: #0176d3;
-            color: #fff;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        .industry-card .btn-trial:hover { background: #014486; }
-
-        /* === FAQ === */
-        .faq-section {
-            padding: 64px 40px;
-            background: #fff;
-        }
-        .faq-inner {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        .faq-inner h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #032d60;
-            margin-bottom: 28px;
-            text-align: center;
-        }
-        .faq-item {
-            border-bottom: 1px solid #e5e5e5;
-        }
-        .faq-item summary {
-            padding: 18px 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #032d60;
-            cursor: pointer;
-            list-style: none;
-        }
-        .faq-item summary::-webkit-details-marker { display: none; }
-        .faq-item summary::after { content: '+'; float: right; color: #0176d3; font-size: 20px; }
-        .faq-item[open] summary::after { content: '−'; }
-        .faq-item .faq-answer {
-            padding: 0 0 18px;
-            font-size: 15px;
-            color: #444;
             line-height: 1.7;
         }
 
-        /* === CTA === */
-        .cta-section {
-            padding: 56px 40px;
-            background: #032d60;
-            text-align: center;
-        }
-        .cta-section h2 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .cta-section p {
-            font-size: 16px;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 24px;
-        }
-        .cta-section a {
-            display: inline-block;
-            padding: 14px 32px;
-            background: #fff;
-            color: #0176d3;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        .cta-section a:hover { background: #eaf5fe; }
-
         @media (max-width: 960px) {
-            .trials-grid, .industry-grid { grid-template-columns: 1fr 1fr; }
-            .global-nav-links { display: none; }
-            .hero h1 { font-size: 28px; }
-        }
-        @media (max-width: 600px) {
-            .trials-grid, .industry-grid { grid-template-columns: 1fr; }
+            .cards-row { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
 <!-- === NAV === -->
-<nav class="global-nav">
-    <div class="global-nav-left">
-        <a href="#" class="sf-logo">
-            <img src="salesforce-logo.png" alt="Salesforce" height="25">
+<nav class="nav">
+    <div class="nav-left">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 50 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.8 7.2c2.2-2.3 5.3-3.7 8.6-3.7 4.5 0 8.4 2.5 10.5 6.1 1.8-.8 3.8-1.2 5.9-1.2 7.8 0 14.2 6.3 14.2 14.1S53.6 36.6 45.8 36.6c-1.2 0-2.3-.2-3.4-.4-1.9 2.8-5.1 4.6-8.8 4.6-1.7 0-3.3-.4-4.7-1.1-1.9 3.5-5.6 5.9-9.8 5.9-4.2 0-7.9-2.3-9.8-5.8-1 .3-2 .4-3.1.4C2.8 40.2-1 36.2-1 31.3c0-3.3 1.8-6.2 4.5-7.7-.4-1.1-.6-2.4-.6-3.6 0-6.2 5-11.2 11.2-11.2 2.6 0 5 .9 6.7 2.4z" fill="#00A1E0" transform="scale(0.7) translate(2,2)"/>
+            </svg>
+            <span>CRM</span>
         </a>
-        <div class="global-nav-links">
-            <a href="#">Products</a>
-            <a href="#">Industries</a>
-            <a href="#">Customers</a>
-            <a href="#">Events</a>
-            <a href="#">Learning</a>
-            <a href="#">Support</a>
-            <a href="#">Company</a>
+        <div class="nav-links">
+            <a href="#">Overview</a>
+            <a href="#">What is CRM? &#x25BE;</a>
+            <a href="#">Solutions &#x25BE;</a>
+            <a href="#">Resources &#x25BE;</a>
+            <a href="#">Pricing</a>
         </div>
     </div>
-    <div class="global-nav-right">
-        <a href="#">Contact Us</a>
-        <a href="#">&#x1f310;</a>
-        <a href="#">&#x1f464; Login</a>
+    <div class="nav-right">
+        <a href="#" class="btn-outline">Start for free</a>
+        <a href="#" class="btn-filled">Take guided tour</a>
     </div>
 </nav>
 
 <!-- === HERO === -->
 <section class="hero">
     <h1>Salesforce CRM Free Trial</h1>
-    <p class="subtitle">Explore Salesforce free trials for your product or industry.</p>
-    <div class="hero-image-wrapper">
-        <img src="hero-product.png" alt="Slack CRM product interface">
-    </div>
+    <p>Explore Salesforce free trials for your product or industry.</p>
 </section>
 
-<!-- === TRIAL CARDS === -->
-<section class="trials-section">
-    <div class="trials-inner">
-        <div class="trials-grid">
+<!-- Clouds -->
+<div class="clouds"></div>
 
-            <!-- Slack CRM (Featured) -->
-            <div class="trial-card featured">
+<!-- === CARDS === -->
+<section class="cards-section">
+
+    <!-- Row 1: Slack CRM, Starter Suite, Pro Suite -->
+    <div class="cards-row">
+
+        <!-- Slack CRM -->
+        <div class="trial-card">
+            <div class="card-image">
+                <img src="hero-product.png" alt="Slack CRM interface">
+            </div>
+            <div class="card-body">
                 <span class="card-badge">New</span>
-                <h3>Slack CRM</h3>
+                <h3 class="no-italic">Slack CRM</h3>
                 <p>Start your CRM in Slack. Grow with Salesforce. Manage customers where work already happens. Slackbot, your AI teammate, helps you capture contacts, update deals, and move work forward without leaving Slack.</p>
-                <span class="no-cc">No credit card required.</span>
-                <a href="signup.html" class="btn-trial">Start for free &#x2197;</a>
+                <a href="signup.html" class="btn-start purple">Start for free &#x2197;</a>
             </div>
+        </div>
 
-            <!-- Starter Suite -->
-            <div class="trial-card">
+        <!-- Starter Suite -->
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Starter Suite dashboard ]</span>
+            </div>
+            <div class="card-body">
                 <h3>Starter Suite</h3>
-                <p>Start simple with an easy-to-use CRM for small business — with turnkey AI, sales, service, marketing, and commerce.</p>
-                <span class="no-cc">No credit card required.</span>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+                <p>Start simple with an easy-to-use CRM for small business — with turnkey AI to help you sell, market, and support from day one. No credit card required.</p>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
+        </div>
 
-            <!-- Pro Suite -->
-            <div class="trial-card">
+        <!-- Pro Suite -->
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Pro Suite dashboard ]</span>
+            </div>
+            <div class="card-body">
                 <h3>Pro Suite</h3>
-                <p>Take the next step with more customization, automation, and deeper visibility across sales, service, and marketing.</p>
-                <span class="no-cc">No credit card required.</span>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+                <p>Take the next step with more customization, automation, and deeper visibility across your business — built to support growing teams. Try it free.</p>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
+        </div>
 
-            <!-- Sales Enterprise -->
-            <div class="trial-card">
+    </div>
+
+    <!-- Row 2: More trials -->
+    <div class="cards-row">
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Sales Cloud ]</span>
+            </div>
+            <div class="card-body">
                 <h3>Sales Enterprise Edition</h3>
                 <p>The more advanced CRM for sales with AI and automation built in. Manage pipeline, forecast revenue, and close deals faster.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
-
-            <!-- Service Enterprise -->
-            <div class="trial-card">
+        </div>
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Service Cloud ]</span>
+            </div>
+            <div class="card-body">
                 <h3>Service Enterprise Edition</h3>
                 <p>Customizable CRM for comprehensive service. Deliver faster, smarter support with AI-powered workflows.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
-
-            <!-- Platform Starter -->
-            <div class="trial-card">
+        </div>
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Platform ]</span>
+            </div>
+            <div class="card-body">
                 <h3>Platform Starter</h3>
                 <p>Build custom apps that fuel sales, service, and marketing productivity with clicks, not code.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-
-            <!-- CRM Analytics -->
-            <div class="trial-card">
-                <h3>CRM Analytics</h3>
-                <p>Complete analytics platform built into your CRM data. Visualize trends and take action — all in one place.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-
-            <!-- Tableau -->
-            <div class="trial-card">
-                <h3>Tableau Viewer</h3>
-                <p>See and understand data with powerful, easy-to-use visual analytics for your entire organization.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- === INDUSTRY TRIALS === -->
-<section class="industry-section">
-    <div class="industry-inner">
-        <h2>Industry-specific trials</h2>
-        <div class="industry-grid">
-            <div class="industry-card">
-                <h3>Automotive</h3>
-                <p>Connected experiences for dealers, OEMs, and mobility companies.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Financial Services</h3>
-                <p>Unified platform for banking, insurance, and wealth management.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Healthcare</h3>
-                <p>Connected patient and member experiences across care journeys.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Manufacturing</h3>
-                <p>Streamline operations and build stronger customer relationships.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Communications</h3>
-                <p>Digital-first experiences for media, telecom, and tech companies.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Education</h3>
-                <p>Connected campus from recruitment to alumni engagement.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Nonprofit</h3>
-                <p>Engage supporters and deliver your mission more effectively.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
-            </div>
-            <div class="industry-card">
-                <h3>Public Sector</h3>
-                <p>Deliver connected citizen experiences and modernize operations.</p>
-                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
         </div>
     </div>
+
 </section>
 
-<!-- === FAQ === -->
-<section class="faq-section">
-    <div class="faq-inner">
-        <h2>Frequently asked questions</h2>
-        <details class="faq-item">
-            <summary>How long is the free trial?</summary>
-            <div class="faq-answer">Most Salesforce free trials last 14–30 days depending on the product. Slack CRM is included with Slack Business+ at no additional cost.</div>
-        </details>
-        <details class="faq-item">
-            <summary>What features are included in the trial?</summary>
-            <div class="faq-answer">Trials include full access to the product's features — sales automation, lead management, contact management, reporting, and more.</div>
-        </details>
-        <details class="faq-item">
-            <summary>Do I need a credit card to start?</summary>
-            <div class="faq-answer">No credit card is required for most free trials. You can start exploring immediately.</div>
-        </details>
-        <details class="faq-item">
-            <summary>What happens after the trial ends?</summary>
-            <div class="faq-answer">You can choose a plan that fits your needs, or your data will be saved for a limited time if you decide to come back later.</div>
-        </details>
-        <details class="faq-item">
-            <summary>Can I upgrade from Slack CRM to Salesforce Starter?</summary>
-            <div class="faq-answer">Yes. Slack CRM is built on Salesforce, so your data carries over seamlessly — no migration needed. Just upgrade when you're ready for more.</div>
-        </details>
-        <details class="faq-item">
-            <summary>How is Salesforce pricing structured?</summary>
-            <div class="faq-answer">Salesforce offers per-user, per-month pricing across different tiers — from Slack CRM ($9/user/month) to Starter Suite ($25) to Pro Suite ($100) and beyond.</div>
-        </details>
-    </div>
-</section>
-
-<!-- === CTA === -->
-<section class="cta-section">
-    <h2>Can't find your trial? Have questions?</h2>
-    <p>Get in touch with a sales expert to find the right solution for your business.</p>
-    <a href="#">Contact us</a>
-</section>
+<!-- Rest of page -->
+<div class="rest-of-page">
+    <p><strong>Rest of page remains unchanged.</strong><br><br>Everything below — industry trials, FAQ, and footer — stays exactly as it appears on salesforce.com/crm/free-trial today.</p>
+</div>
 
 </body>
 </html>
