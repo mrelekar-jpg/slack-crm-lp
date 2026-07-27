@@ -109,9 +109,13 @@
 
         .cards-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 28px;
             margin-bottom: 28px;
+        }
+
+        .cards-row.three-col {
+            grid-template-columns: repeat(3, 1fr);
         }
 
         .trial-card {
@@ -140,8 +144,9 @@
             object-fit: cover;
         }
         .card-image .placeholder-text {
-            color: #999;
+            color: #0176d3;
             font-size: 13px;
+            opacity: 0.6;
         }
 
         .card-body {
@@ -196,11 +201,6 @@
             width: fit-content;
         }
         .card-body .btn-start:hover { background: #eaf5fe; }
-        .card-body .btn-start.purple {
-            border-color: #4a154b;
-            color: #4a154b;
-        }
-        .card-body .btn-start.purple:hover { background: #f8f0f9; }
 
         /* Rest of page placeholder */
         .rest-of-page {
@@ -217,7 +217,7 @@
         }
 
         @media (max-width: 960px) {
-            .cards-row { grid-template-columns: 1fr; }
+            .cards-row, .cards-row.three-col { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .hero h1 { font-size: 32px; }
         }
@@ -261,7 +261,7 @@
 <section class="cards-section">
 
     <!-- Row 1: Slack CRM, Starter Suite, Pro Suite -->
-    <div class="cards-row">
+    <div class="cards-row three-col">
 
         <!-- Slack CRM -->
         <div class="trial-card">
@@ -272,7 +272,7 @@
                 <span class="card-badge">New</span>
                 <h3 class="no-italic">Slack CRM</h3>
                 <p>Start your CRM in Slack. Grow with Salesforce. Manage customers where work already happens. Slackbot, your AI teammate, helps you capture contacts, update deals, and move work forward without leaving Slack.</p>
-                <a href="signup.html" class="btn-start purple">Start for free &#x2197;</a>
+                <a href="signup.html" class="btn-start">Start for free &#x2197;</a>
             </div>
         </div>
 
@@ -302,8 +302,8 @@
 
     </div>
 
-    <!-- Row 2: More trials -->
-    <div class="cards-row">
+    <!-- Row 2 -->
+    <div class="cards-row three-col">
         <div class="trial-card">
             <div class="card-image">
                 <span class="placeholder-text">[ Sales Cloud ]</span>
@@ -331,6 +331,40 @@
             <div class="card-body">
                 <h3>Platform Starter</h3>
                 <p>Build custom apps that fuel sales, service, and marketing productivity with clicks, not code.</p>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="cards-row three-col">
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ CRM Analytics ]</span>
+            </div>
+            <div class="card-body">
+                <h3>CRM Analytics</h3>
+                <p>Complete analytics platform built into your CRM data. Visualize trends and take action — all in one place.</p>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
+            </div>
+        </div>
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Tableau ]</span>
+            </div>
+            <div class="card-body">
+                <h3>Tableau Viewer</h3>
+                <p>See and understand data with powerful, easy-to-use visual analytics for your entire organization.</p>
+                <a href="#" class="btn-start">Start for free &#x2197;</a>
+            </div>
+        </div>
+        <div class="trial-card">
+            <div class="card-image">
+                <span class="placeholder-text">[ Slack ]</span>
+            </div>
+            <div class="card-body">
+                <h3>Slack Free Edition</h3>
+                <p>90 days of message history, 10 app integrations, calls, and more. Get your team connected.</p>
                 <a href="#" class="btn-start">Start for free &#x2197;</a>
             </div>
         </div>
