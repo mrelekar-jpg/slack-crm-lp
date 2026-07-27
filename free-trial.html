@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce CRM Free Trial</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #032d60;
+            line-height: 1.5;
+            background: #fff;
+        }
+
+        /* === NAV === */
+        .global-nav {
+            background: #fff;
+            padding: 0 40px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .global-nav-left { display: flex; align-items: center; gap: 28px; }
+        .sf-logo img { height: 25px; width: auto; }
+        .global-nav-links { display: flex; gap: 22px; }
+        .global-nav-links a { text-decoration: none; color: #032d60; font-size: 14px; }
+        .global-nav-links a:hover { text-decoration: underline; }
+        .global-nav-right { display: flex; align-items: center; gap: 20px; }
+        .global-nav-right a { text-decoration: none; color: #032d60; font-size: 14px; }
+
+        /* === HERO === */
+        .hero {
+            background: linear-gradient(135deg, #e8f4fc 0%, #f0e8fc 50%, #fce8f4 100%);
+            padding: 56px 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #032d60;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-image {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+        }
+        .hero-image img {
+            width: 100%;
+            display: block;
+        }
+
+        /* === FEATURED CARD (Slack CRM) === */
+        .featured-section {
+            padding: 64px 40px;
+            background: #f4f6f9;
+        }
+        .featured-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+        .featured-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 48px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            border-left: 5px solid #4a154b;
+        }
+        .featured-card .fc-left h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #032d60;
+            margin-bottom: 8px;
+        }
+        .featured-card .fc-left .tagline {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4a154b;
+            margin-bottom: 16px;
+        }
+        .featured-card .fc-left p {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .featured-card .fc-left .badge {
+            display: inline-block;
+            background: #4a154b;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+        .featured-card .fc-left .btn-start {
+            display: inline-block;
+            background: #4a154b;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .featured-card .fc-left .btn-start:hover { background: #611f69; }
+        .featured-card .fc-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .featured-card .fc-right .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 15px;
+            color: #032d60;
+            line-height: 1.45;
+        }
+        .featured-card .fc-right .feature .check svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* === TRIAL CARDS GRID === */
+        .trials-section {
+            padding: 64px 40px;
+            background: #fff;
+        }
+        .trials-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+        .trials-inner h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #032d60;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .trials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .trial-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .trial-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #032d60;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .trial-card p {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        .trial-card .btn-trial {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: #0176d3;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .trial-card .btn-trial:hover { background: #014486; }
+
+        /* === FAQ === */
+        .faq-section {
+            padding: 64px 40px;
+            background: #f4f6f9;
+        }
+        .faq-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .faq-inner h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #032d60;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-item summary {
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #032d60;
+            cursor: pointer;
+            list-style: none;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: ' +'; float: right; color: #0176d3; }
+        .faq-item[open] summary::after { content: ' −'; }
+        .faq-item .faq-answer {
+            padding: 0 20px 16px;
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        /* === CTA BANNER === */
+        .cta-banner {
+            padding: 56px 40px;
+            text-align: center;
+            background: #032d60;
+        }
+        .cta-banner h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .cta-banner p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 28px;
+        }
+        .cta-banner a {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #fff;
+            color: #0176d3;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .cta-banner a:hover { background: #eaf5fe; }
+
+        @media (max-width: 960px) {
+            .featured-card { grid-template-columns: 1fr; }
+            .trials-grid { grid-template-columns: 1fr; }
+            .global-nav-links { display: none; }
+            .hero h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- === NAV === -->
+<nav class="global-nav">
+    <div class="global-nav-left">
+        <a href="#" class="sf-logo">
+            <img src="salesforce-logo.png" alt="Salesforce" height="25">
+        </a>
+        <div class="global-nav-links">
+            <a href="#">Products</a>
+            <a href="#">Industries</a>
+            <a href="#">Customers</a>
+            <a href="#">Events</a>
+            <a href="#">Learning</a>
+            <a href="#">Support</a>
+            <a href="#">Company</a>
+        </div>
+    </div>
+    <div class="global-nav-right">
+        <a href="#">Contact Us</a>
+        <a href="#">&#x1f310;</a>
+        <a href="#">&#x1f464; Login</a>
+    </div>
+</nav>
+
+<!-- === HERO === -->
+<section class="hero">
+    <h1>Salesforce CRM Free Trial</h1>
+    <p class="subtitle">Explore Salesforce free trials for your product or industry.</p>
+    <div class="hero-image">
+        <img src="hero-product.png" alt="Slack CRM product screenshot">
+    </div>
+</section>
+
+<!-- === FEATURED: SLACK CRM === -->
+<section class="featured-section">
+    <div class="featured-inner">
+        <div class="featured-card">
+            <div class="fc-left">
+                <span class="badge">New</span>
+                <h2>Slack CRM</h2>
+                <p class="tagline">Simplicity of Slack. Power of Salesforce.</p>
+                <p>The conversational CRM, built into Slack. Stop updating your CRM manually — just tell Slackbot what happened. It captures contacts, updates deals, and keeps your pipeline current. Your data lives on Salesforce, ready to scale when you are.</p>
+                <a href="signup.html" class="btn-start">Start for free &#x2197;</a>
+            </div>
+            <div class="fc-right">
+                <div class="feature">
+                    <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Track deals, log calls, and manage contacts — Slackbot, your AI agent, surfaces details and drafts follow-ups</span>
+                </div>
+                <div class="feature">
+                    <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Turn support emails into cases — Slackbot summarizes issues and helps draft replies</span>
+                </div>
+                <div class="feature">
+                    <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Ask Slackbot to research accounts, draft emails, and keep customer records up to date</span>
+                </div>
+                <div class="feature">
+                    <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Full Slack Business+ features along with Slack CRM</span>
+                </div>
+                <div class="feature">
+                    <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Built on Salesforce — upgrade anytime without data migration</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- === OTHER TRIALS === -->
+<section class="trials-section">
+    <div class="trials-inner">
+        <h2>More Salesforce free trials</h2>
+        <div class="trials-grid">
+            <div class="trial-card">
+                <h3>Starter Suite</h3>
+                <p>Start simple with an easy-to-use CRM for small business — with turnkey AI, sales, service, marketing, and commerce. No credit card required.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+            <div class="trial-card">
+                <h3>Pro Suite</h3>
+                <p>Take the next step with more customization, automation, and deeper visibility across sales, service, and marketing.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+            <div class="trial-card">
+                <h3>Sales Enterprise Edition</h3>
+                <p>The more advanced CRM for sales with AI and automation built in. Manage pipeline, forecast revenue, and close deals faster.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+            <div class="trial-card">
+                <h3>Service Enterprise Edition</h3>
+                <p>Customizable CRM for comprehensive service. Deliver faster, smarter support with AI-powered workflows.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+            <div class="trial-card">
+                <h3>Platform Starter</h3>
+                <p>Build custom apps that fuel sales, service, and marketing productivity with clicks, not code.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+            <div class="trial-card">
+                <h3>CRM Analytics</h3>
+                <p>Complete analytics platform built into your CRM data. Visualize trends and take action — all in one place.</p>
+                <a href="#" class="btn-trial">Start for free &#x2197;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- === FAQ === -->
+<section class="faq-section">
+    <div class="faq-inner">
+        <h2>Frequently asked questions</h2>
+        <details class="faq-item">
+            <summary>How long is the free trial?</summary>
+            <div class="faq-answer">Most Salesforce free trials last 14–30 days depending on the product. Slack CRM is included free with Slack Business+.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What features are included?</summary>
+            <div class="faq-answer">Trials include full access to the product's features — sales automation, lead management, contact management, reporting, and more.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Do I need a credit card?</summary>
+            <div class="faq-answer">No credit card is required for most free trials. You can start exploring immediately.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What happens after the trial ends?</summary>
+            <div class="faq-answer">You can choose a plan that fits your needs, or your data will be saved for a limited time if you decide to come back later.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Can I upgrade from Slack CRM to Salesforce Starter?</summary>
+            <div class="faq-answer">Yes. Slack CRM is built on Salesforce, so your data carries over seamlessly — no migration needed. Just upgrade when you're ready for more.</div>
+        </details>
+    </div>
+</section>
+
+<!-- === CTA BANNER === -->
+<section class="cta-banner">
+    <h2>Can't find your trial? Have questions?</h2>
+    <p>Get in touch with a sales expert to find the right solution for your business.</p>
+    <a href="#">Contact us</a>
+</section>
+
+</body>
+</html>
