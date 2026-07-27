@@ -51,17 +51,17 @@
 
         /* === HERO === */
         .hero-section {
-            padding: 64px 40px 48px;
+            background: #032d60;
+            padding: 56px 40px;
             text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
         }
         .hero-section h1 {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 700;
-            color: #032d60;
-            line-height: 1.3;
-            margin-bottom: 24px;
+            color: #fff;
+            line-height: 1.35;
+            max-width: 780px;
+            margin: 0 auto 24px;
         }
         .hero-ctas {
             display: flex;
@@ -77,32 +77,60 @@
             transition: all 0.15s;
         }
         .hero-ctas .btn-primary {
-            background: #0176d3;
-            color: #fff;
-        }
-        .hero-ctas .btn-primary:hover { background: #014486; }
-        .hero-ctas .btn-secondary {
             background: #fff;
             color: #0176d3;
-            border: 2px solid #0176d3;
         }
-        .hero-ctas .btn-secondary:hover { background: #eaf5fe; }
+        .hero-ctas .btn-primary:hover { background: #eaf5fe; }
+        .hero-ctas .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .hero-ctas .btn-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.06); }
+
+        /* === HERO IMAGE === */
+        .hero-image {
+            background: #032d60;
+            padding: 0 40px 60px;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 900px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .hero-image .placeholder {
+            max-width: 900px;
+            width: 100%;
+            aspect-ratio: 16/7;
+            background: linear-gradient(135deg, #0d4f8b, #1976c4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .hero-image .placeholder span {
+            color: rgba(255,255,255,0.6);
+            font-size: 16px;
+        }
 
         /* === PRICING SECTION === */
         .pricing-section {
-            padding: 48px 40px 80px;
+            padding: 64px 40px 80px;
             background: #f4f6f9;
         }
         .pricing-inner {
-            max-width: 1000px;
+            max-width: 1060px;
             margin: 0 auto;
         }
         .pricing-header {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            margin-bottom: 32px;
-            gap: 12px;
+            margin-bottom: 28px;
         }
         .currency-select {
             padding: 8px 12px;
@@ -123,8 +151,8 @@
         .pricing-card {
             background: #fff;
             border-radius: 8px;
-            padding: 36px 28px 28px;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+            padding: 32px 24px 28px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             position: relative;
@@ -141,15 +169,14 @@
             margin-bottom: 20px;
         }
         .card-header h3 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #032d60;
             font-style: italic;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .pricing-card.slack-card .card-header h3 {
             font-style: normal;
-            color: #032d60;
         }
         .card-header .subtitle {
             font-size: 14px;
@@ -162,37 +189,41 @@
             display: inline-block;
             border: 1.5px solid #ccc;
             border-radius: 20px;
-            padding: 5px 14px;
+            padding: 4px 14px;
             font-size: 11px;
             font-weight: 700;
             color: #333;
             letter-spacing: 0.3px;
-            margin: 0 auto 16px;
-            text-align: center;
         }
 
         /* Card price */
         .card-price {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+        }
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 2px;
         }
         .card-price .strikethrough {
             font-size: 22px;
             color: #999;
             text-decoration: line-through;
-            margin-right: 2px;
+            margin-right: 4px;
             font-weight: 400;
         }
         .card-price .dollar {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: #032d60;
-            vertical-align: top;
+            align-self: flex-start;
             position: relative;
-            top: 6px;
+            top: 8px;
         }
         .card-price .amount {
-            font-size: 60px;
+            font-size: 64px;
             font-weight: 700;
             color: #032d60;
             line-height: 1;
@@ -203,13 +234,16 @@
             color: #444;
             margin-left: 4px;
             font-weight: 400;
+            align-self: flex-start;
+            position: relative;
+            top: 10px;
         }
         .card-price .per-line {
             font-size: 14px;
             font-weight: 700;
             color: #032d60;
             display: block;
-            margin-top: 6px;
+            margin-top: 4px;
         }
         .card-price .billing-note {
             font-size: 12px;
@@ -222,7 +256,7 @@
         /* Features */
         .card-features {
             flex: 1;
-            padding: 20px 0;
+            padding: 20px 0 8px;
         }
         .feature {
             display: flex;
@@ -256,32 +290,23 @@
             font-weight: 700;
             text-decoration: none;
             transition: all 0.15s;
-        }
-        .card-cta .btn-blue {
             background: #0176d3;
             color: #fff;
         }
-        .card-cta .btn-blue:hover { background: #014486; }
-        .card-cta .btn-purple {
-            background: #4a154b;
-            color: #fff;
-        }
-        .card-cta .btn-purple:hover { background: #611f69; }
+        .card-cta a:hover { background: #014486; }
 
-        /* Footer */
-        .page-footer {
-            padding: 48px 40px;
+        /* === REST OF PAGE === */
+        .rest-of-page {
+            padding: 80px 40px;
             text-align: center;
-            background: #fff;
+            color: #999;
+            font-size: 14px;
         }
-        .page-footer p {
-            font-size: 15px;
-            color: #444;
-            max-width: 680px;
+        .rest-of-page p {
+            max-width: 500px;
             margin: 0 auto;
             line-height: 1.7;
         }
-        .page-footer strong { color: #032d60; }
 
         @media (max-width: 960px) {
             .cards-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
@@ -331,13 +356,19 @@
 
 <!-- === HERO === -->
 <section class="hero-section">
-    <h1>Find the right CRM for your business.</h1>
-    <p style="font-size: 17px; color: #444; max-width: 680px; margin: 0 auto 28px; line-height: 1.6;">Start with a conversational CRM built into Slack — or scale up with the full power of Salesforce.</p>
+    <h1>Put turnkey AI to work across your small business with a CRM that already knows your customers.</h1>
     <div class="hero-ctas">
         <a href="signup.html" class="btn-primary">Get started free</a>
         <a href="#" class="btn-secondary">Watch demo</a>
     </div>
 </section>
+
+<!-- === HERO IMAGE === -->
+<div class="hero-image">
+    <div class="placeholder">
+        <span>[ Product screenshot ]</span>
+    </div>
+</div>
 
 <!-- === PRICING CARDS === -->
 <section class="pricing-section">
@@ -360,15 +391,16 @@
                     <h3>Slack CRM</h3>
                     <p class="subtitle">The conversational CRM, built into Slack. Stop updating your CRM manually — just tell Slackbot what happened.</p>
                 </div>
-                <div style="text-align:center;">
+                <div style="text-align:center; margin-bottom: 16px;">
                     <div class="promo-badge">50% OFF FOR 3 MONTHS*</div>
                 </div>
                 <div class="card-price">
-                    <span class="strikethrough">$18</span>
-                    <span class="dollar">$</span><span class="amount">9</span>
-                    <span class="currency">USD</span>
-                    <span class="per-line">USD/User/Month</span>
-                    <p class="billing-note">(Starting price. Transaction fees apply.<br>Billed monthly or annually.)</p>
+                    <div class="price-row">
+                        <span class="strikethrough">$18</span>
+                        <span class="dollar">$</span><span class="amount">9</span>
+                        <span class="currency">USD</span>
+                    </div>
+                    <span class="per-line">per user / month, when paying monthly</span>
                 </div>
                 <div class="card-features">
                     <div class="feature">
@@ -389,7 +421,7 @@
                     </div>
                 </div>
                 <div class="card-cta">
-                    <a href="signup.html" class="btn-blue">Try for free &#x2197;</a>
+                    <a href="signup.html">Try for free &#x2197;</a>
                 </div>
             </div>
 
@@ -400,7 +432,9 @@
                     <p class="subtitle">Turnkey AI + CRM for small businesses — automate sales, marketing, and service.</p>
                 </div>
                 <div class="card-price">
-                    <span class="dollar">$</span><span class="amount">25</span>
+                    <div class="price-row">
+                        <span class="dollar">$</span><span class="amount">25</span>
+                    </div>
                     <span class="per-line">USD/User/Month</span>
                     <p class="billing-note">(Starting price. Transaction fees apply.<br>Billed monthly or annually.)</p>
                 </div>
@@ -423,7 +457,7 @@
                     </div>
                 </div>
                 <div class="card-cta">
-                    <a href="#" class="btn-blue">Try for free &#x2197;</a>
+                    <a href="#">Try for free &#x2197;</a>
                 </div>
             </div>
 
@@ -434,7 +468,9 @@
                     <p class="subtitle">The CRM with advanced automation and deeper customization.</p>
                 </div>
                 <div class="card-price">
-                    <span class="dollar">$</span><span class="amount">100</span>
+                    <div class="price-row">
+                        <span class="dollar">$</span><span class="amount">100</span>
+                    </div>
                     <span class="per-line">USD/User/Month</span>
                     <p class="billing-note">(Starting price. Transaction fees apply.<br>Billed annually. Contract required.)</p>
                 </div>
@@ -457,7 +493,7 @@
                     </div>
                 </div>
                 <div class="card-cta">
-                    <a href="#" class="btn-blue">Try for free &#x2197;</a>
+                    <a href="#">Try for free &#x2197;</a>
                 </div>
             </div>
 
@@ -465,10 +501,9 @@
     </div>
 </section>
 
-<!-- === FOOTER === -->
-<div class="page-footer">
-    <p><strong>Start with Slack CRM. Grow with Salesforce.</strong><br>
-    Slack CRM gives your team a conversational CRM with zero setup. When you're ready for more — automation, marketing, advanced reporting — upgrade seamlessly to Starter or Pro Suite. Your data comes with you.</p>
+<!-- Rest of page -->
+<div class="rest-of-page">
+    <p><strong>Rest of page remains unchanged.</strong><br><br>Everything below the pricing cards — product features, interactive demo, customer testimonials, FAQ, and footer — stays exactly as it appears on salesforce.com/small-business/starter today.</p>
 </div>
 
 </body>
